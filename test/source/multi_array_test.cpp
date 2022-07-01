@@ -21,6 +21,10 @@ TEST(multi_array, basic_2D1)
   auto grid2 = grid;
   EXPECT_EQ(grid, grid2);
 
+  // Test the != operator.
+  grid.fill(1);
+  EXPECT_NE(grid, grid2);
+
   // Clear the grid.
   grid.clear();
 }

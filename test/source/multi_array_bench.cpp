@@ -16,40 +16,62 @@ static void multi_array_setvalue2D(benchmark::State& state)
 
   for (auto _ : state) {
     for (uint64_t i = 0; i < width * height; ++i) {
-      grid.SetValue(i, 384);
+      grid.SetValue(i, 42);
     }
     benchmark::ClobberMemory();
   }
 
   state.SetItemsProcessed(state.iterations() * width * height);
-  state.SetBytesProcessed(state.iterations() * width * height * sizeof(uint32_t));
+  state.SetBytesProcessed(state.iterations() * width * height
+                          * sizeof(uint32_t));
 }
 BENCHMARK(multi_array_setvalue2D)
     ->Name("multi_array_setvalue2D")
     ->RangeMultiplier(8)
     ->Range(8, 4096);
 
-static void multi_array_setvalue3D(benchmark::State& state)
+static void multi_array_fill_uint32_2D(benchmark::State& state)
 {
   const auto width = state.range(0);
   const auto height = state.range(0);
-  const auto depth = state.range(0);
-  std::vector<uint64_t> v = {width, height, depth};
+  std::vector<uint64_t> v = {width, height};
   auto grid = benlib::MultiVector<uint32_t>(v);
   grid.fill(0);
   benchmark::DoNotOptimize(grid);
 
   for (auto _ : state) {
-    for (uint64_t i = 0; i < width * height * depth; ++i) {
-      grid.SetValue(i, 384);
-    }
+    grid.fill(42);
     benchmark::ClobberMemory();
   }
 
-  state.SetItemsProcessed(state.iterations() * width * height * depth);
-  state.SetBytesProcessed(state.iterations() * width * height * depth * sizeof(uint32_t));
+  state.SetItemsProcessed(state.iterations() * width * height);
+  state.SetBytesProcessed(state.iterations() * width * height
+                          * sizeof(uint32_t));
 }
-BENCHMARK(multi_array_setvalue2D)
-    ->Name("multi_array_setvalue2D")
-    ->RangeMultiplier(4)
-    ->Range(16, 1024);
+BENCHMARK(multi_array_fill_uint32_2D)
+    ->Name("multi_array_fill_uint32_2D")
+    ->RangeMultiplier(8)
+    ->Range(8, 4096);
+
+static void multi_array_fill_uint8_2D(benchmark::State& state)
+{
+  const auto width = state.range(0);
+  const auto height = state.range(0);
+  std::vector<uint64_t> v = {width, height};
+  auto grid = benlib::MultiVector<uint8_t>(v);
+  grid.fill(0);
+  benchmark::DoNotOptimize(grid);
+
+  for (auto _ : state) {
+    grid.fill(42);
+    benchmark::ClobberMemory();
+  }
+
+  state.SetItemsProcessed(state.iterations() * width * height);
+  state.SetBytesProcessed(state.iterations() * width * height
+                          * sizeof(uint8_t));
+}
+BENCHMARK(multi_array_fill_uint8_2D)
+    ->Name("multi_array_fill_uint8_2D")
+    ->RangeMultiplier(8)
+    ->Range(8, 4096);
