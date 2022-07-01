@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - uses: actions/setup-python@v2
       with: { python-version: "3.8" }
@@ -41,7 +41,7 @@ jobs:
     if: github.repository_owner == 'bensuperpc'
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Install LCov
       run: sudo apt-get update -q
@@ -71,7 +71,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Configure
       env: { CXX: clang++-12 }
@@ -101,7 +101,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Install static analyzers
       if: matrix.os == 'ubuntu-latest'
@@ -143,7 +143,7 @@ jobs:
       && github.repository_owner == 'bensuperpc'
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - uses: actions/setup-python@v2
       with: { python-version: "3.8" }
