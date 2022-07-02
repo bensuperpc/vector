@@ -11,7 +11,7 @@ TEST(multi_array, advanced_1D_uint8_t)
   uint64_t gridsize = width;
   std::vector<uint64_t> v = {width};
 
-  auto grid = benlib::MultiVector<uint8_t>(v);
+  auto grid = benlib::multi_array<uint8_t>(v);
   grid.fill(96);
 
   // Test fill
@@ -92,7 +92,7 @@ TEST(multi_array, advanced_1D_uint32_t)
   uint64_t gridsize = width;
   std::vector<uint64_t> v = {width};
 
-  auto grid = benlib::MultiVector<uint32_t>(v);
+  auto grid = benlib::multi_array<uint32_t>(v);
   grid.fill(96);
 
   // Test fill
@@ -174,7 +174,7 @@ TEST(multi_array, advanced_2D_uint8_t)
   uint64_t gridsize = width * height;
 
   std::vector<uint64_t> v = {width, height};
-  auto grid = benlib::MultiVector<uint8_t>(v);
+  auto grid = benlib::multi_array<uint8_t>(v);
   grid.fill(96);
 
   // Test fill
@@ -256,7 +256,7 @@ TEST(multi_array, advanced_2D_uint32_t)
   uint64_t gridsize = width * height;
 
   std::vector<uint64_t> v = {width, height};
-  auto grid = benlib::MultiVector<uint32_t>(v);
+  auto grid = benlib::multi_array<uint32_t>(v);
   grid.fill(96);
 
   // Test fill
@@ -339,7 +339,7 @@ TEST(multi_array, advanced_3D_uint8_t)
   uint64_t gridsize = width * height * depth;
   std::vector<uint64_t> v = {width, height, depth};
 
-  auto grid = benlib::MultiVector<uint8_t>(v);
+  auto grid = benlib::multi_array<uint8_t>(v);
   grid.fill(96);
 
   // Test fill
@@ -418,7 +418,7 @@ TEST(multi_array, advanced_3D_uint32_t)
   uint64_t gridsize = width * height * depth;
   std::vector<uint64_t> v = {width, height, depth};
 
-  auto grid = benlib::MultiVector<uint32_t>(v);
+  auto grid = benlib::multi_array<uint32_t>(v);
   grid.fill(96);
 
   // Test fill
@@ -498,7 +498,7 @@ TEST(multi_array, advanced_4D_uint8_t)
   uint64_t gridsize = width * height * depth * fourth;
   std::vector<uint64_t> v = {width, height, depth, fourth};
 
-  auto grid = benlib::MultiVector<uint8_t>(v);
+  auto grid = benlib::multi_array<uint8_t>(v);
   grid.fill(96);
 
   // Test fill
@@ -578,7 +578,7 @@ TEST(multi_array, advanced_4D_uint32_t)
   uint64_t gridsize = width * height * depth * fourth;
   std::vector<uint64_t> v = {width, height, depth, fourth};
 
-  auto grid = benlib::MultiVector<uint32_t>(v);
+  auto grid = benlib::multi_array<uint32_t>(v);
   grid.fill(96);
 
   // Test fill
@@ -659,7 +659,7 @@ TEST(multi_array, advanced_5D_uint8_t)
   uint64_t gridsize = width * height * depth * fourth * fifth;
   std::vector<uint64_t> v = {width, height, depth, fourth, fifth};
 
-  auto grid = benlib::MultiVector<uint8_t>(v);
+  auto grid = benlib::multi_array<uint8_t>(v);
   grid.fill(96);
 
   // Test fill
@@ -740,7 +740,7 @@ TEST(multi_array, advanced_5D_uint32_t)
   uint64_t gridsize = width * height * depth * fourth * fifth;
   std::vector<uint64_t> v = {width, height, depth, fourth, fifth};
 
-  auto grid = benlib::MultiVector<uint32_t>(v);
+  auto grid = benlib::multi_array<uint32_t>(v);
   grid.fill(96);
 
   // Test fill

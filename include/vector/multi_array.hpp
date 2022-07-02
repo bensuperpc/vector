@@ -12,25 +12,25 @@
 namespace benlib
 {
 template<typename T>
-class MultiVector;
+class multi_array;
 
-// Needed for MultiVector on [][]... notation.
+// Needed for multi_array on [][]... notation.
 template<typename T>
-class MultiVectorView
+class multi_array_view
 {
 public:
-  MultiVectorView(MultiVector<T>& vec_, uint64_t index_, uint64_t dimension_)
+  multi_array_view(multi_array<T>& vec_, uint64_t index_, uint64_t dimension_)
       : vec(vec_)
       , index(index_)
       , dimension(dimension_)
   {
   }
 
-  MultiVector<T>& vec;
+  multi_array<T>& vec;
   uint64_t index;
   uint64_t dimension;
 
-  MultiVectorView& operator[](std::uint64_t n_index)
+  multi_array_view& operator[](std::uint64_t n_index)
   {
     uint64_t index_multiplyer = 1;
     for (uint64_t i = 0; i < dimension; ++i)
@@ -45,7 +45,7 @@ public:
     return vec.content[index];
   }
 
-  MultiVectorView& operator=(T val)
+  multi_array_view& operator=(T val)
   {
     vec.content[index] = val;
     return *this;
@@ -61,16 +61,16 @@ public:
     return vec.content[index] != val;
   }
 
-  ~MultiVectorView() {}
+  ~multi_array_view() {}
 };
 
 template<typename T>
-class MultiVector
+class multi_array
 {
 public:
-  MultiVector() {}
+  multi_array() {}
 
-  MultiVector(std::vector<uint64_t> dimensions_)
+  multi_array(std::vector<uint64_t> dimensions_)
       : dimensions(dimensions_)
   {
     // Multiply dimensions together.
@@ -80,19 +80,19 @@ public:
     content.resize(size);
   }
 
-  MultiVector(std::vector<uint64_t> dimensions_, std::vector<T> content_)
+  multi_array(std::vector<uint64_t> dimensions_, std::vector<T> content_)
       : dimensions(dimensions_)
       , content(content_)
   {
     /*
     if (content.size() != std::reduce(dimensions_.begin(), dimensions_.end(), 1,
-    std::multiplies<uint64_t>())) throw std::runtime_error("MultiVector: content
+    std::multiplies<uint64_t>())) throw std::runtime_error("multi_array: content
     size does not match dimensions");
     */
   }
 
   // Variadic constructor
-  MultiVector(int argSize, ...)
+  multi_array(int argSize, ...)
   {
     va_list args;
     va_start(args, argSize);
@@ -154,7 +154,7 @@ public:
   {
     // if (grid_.size() != std::reduce(dimensions.begin(),
     // dimensions.end(),1,std::multiplies<uint64_t>())) throw
-    // std::runtime_error("MultiVector: content size does not match
+    // std::runtime_error("multi_array: content size does not match
     // dimensions");
     content = grid_;
   }
@@ -172,7 +172,7 @@ public:
   void SetDim(const std::vector<uint64_t>& dimensions_)
   {
     // if (dimensions_.size() != dimensions.size())
-    //   throw std::runtime_error("MultiVector: dimensions size does not
+    //   throw std::runtime_error("multi_array: dimensions size does not
     //   match");
     dimensions = dimensions_;
   }
@@ -214,7 +214,7 @@ public:
     content[index] = value;
   }
 
-  bool IsEqual(const MultiVector<T>& other)
+  bool IsEqual(const multi_array<T>& other)
   {
     if (dimensions != other.dimensions) {
       return false;
@@ -225,13 +225,13 @@ public:
     return true;
   }
 
-  MultiVectorView<T> operator[](uint64_t index)
+  multi_array_view<T> operator[](uint64_t index)
   {
-    return MultiVectorView<T>(*this, index, 1);
+    return multi_array_view<T>(*this, index, 1);
   }
 
   // Overload = operator
-  MultiVector<T>& operator=(const MultiVector<T>& other)
+  multi_array<T>& operator=(const multi_array<T>& other)
   {
     if (this != &other) {
       content = other.content;
@@ -241,70 +241,70 @@ public:
   }
 
   // Overload + operator
-  MultiVector<T> operator+(const MultiVector<T>& other)
+  multi_array<T> operator+(const multi_array<T>& other)
   {
     // if (dimensions != other.dimensions)
-    //   throw std::runtime_error("MultiVector: dimensions size does not
+    //   throw std::runtime_error("multi_array: dimensions size does not
     //   match");
-    MultiVector<T> result(dimensions);
+    multi_array<T> result(dimensions);
     for (uint64_t i = 0; i < content.size(); ++i)
       result.content[i] = content[i] + other.content[i];
     return result;
   }
 
   // Overload - operator
-  MultiVector<T> operator-(const MultiVector<T>& other)
+  multi_array<T> operator-(const multi_array<T>& other)
   {
     // if (dimensions != other.dimensions)
-    //   throw std::runtime_error("MultiVector: dimensions size does not
+    //   throw std::runtime_error("multi_array: dimensions size does not
     //   match");
-    MultiVector<T> result(dimensions);
+    multi_array<T> result(dimensions);
     for (uint64_t i = 0; i < content.size(); ++i)
       result.content[i] = content[i] - other.content[i];
     return result;
   }
 
   // Overload * operator
-  MultiVector<T> operator*(const MultiVector<T>& other)
+  multi_array<T> operator*(const multi_array<T>& other)
   {
     // if (dimensions != other.dimensions)
-    //   throw std::runtime_error("MultiVector: dimensions size does not
+    //   throw std::runtime_error("multi_array: dimensions size does not
     //   match");
-    MultiVector<T> result(dimensions);
+    multi_array<T> result(dimensions);
     for (uint64_t i = 0; i < content.size(); ++i)
       result.content[i] = content[i] * other.content[i];
     return result;
   }
 
   // Overload / operator
-  MultiVector<T> operator/(const MultiVector<T>& other)
+  multi_array<T> operator/(const multi_array<T>& other)
   {
     // if (dimensions != other.dimensions)
-    //   throw std::runtime_error("MultiVector: dimensions size does not
+    //   throw std::runtime_error("multi_array: dimensions size does not
     //   match");
-    MultiVector<T> result(dimensions);
+    multi_array<T> result(dimensions);
     for (uint64_t i = 0; i < content.size(); ++i)
       result.content[i] = content[i] / other.content[i];
     return result;
   }
 
   // Overload % operator
-  MultiVector<T> operator%(const MultiVector<T>& other)
+  multi_array<T> operator%(const multi_array<T>& other)
   {
     // if (dimensions != other.dimensions)
-    //   throw std::runtime_error("MultiVector: dimensions size does not
+    //   throw std::runtime_error("multi_array: dimensions size does not
     //   match");
-    MultiVector<T> result(dimensions);
+    multi_array<T> result(dimensions);
     for (uint64_t i = 0; i < content.size(); ++i)
       result.content[i] = content[i] % other.content[i];
     return result;
   }
 
   // Overload += operator
-  MultiVector<T>& operator+=(const MultiVector<T>& other)
+  multi_array<T>& operator+=(const multi_array<T>& other)
   {
     // if (dimensions != other.dimensions)
-    //   throw std::runtime_error("MultiVector: dimensions size does not
+    //   throw std::runtime_error("multi_array: dimensions size does not
     //   match");
     for (uint64_t i = 0; i < content.size(); ++i)
       content[i] += other.content[i];
@@ -312,13 +312,13 @@ public:
   }
 
   // Overload == operator
-  bool operator==(const MultiVector<T>& other) const
+  bool operator==(const multi_array<T>& other) const
   {
     return content == other.content && dimensions == other.dimensions;
   }
 
   // Overload != operator
-  bool operator!=(const MultiVector<T>& other) const
+  bool operator!=(const multi_array<T>& other) const
   {
     return content != other.content || dimensions != other.dimensions;
   }

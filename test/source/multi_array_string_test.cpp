@@ -8,7 +8,7 @@
 TEST(multi_array, basic_1D_string)
 {
   std::vector<uint64_t> v = {3};
-  auto grid = benlib::MultiVector<std::string>(v);
+  auto grid = benlib::multi_array<std::string>(v);
   grid.fill("");
   grid.SetValue(0, "a");
   grid.SetValue(1, "b");
@@ -21,7 +21,7 @@ TEST(multi_array, basic_1D_string)
 TEST(multi_array, basic_2D_string)
 {
   std::vector<uint64_t> v = {3, 3};
-  auto grid = benlib::MultiVector<std::string>(v);
+  auto grid = benlib::multi_array<std::string>(v);
   grid.fill("");
   grid.SetValue(0, "a");
   grid.SetValue(1, "b");
