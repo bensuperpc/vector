@@ -7,6 +7,8 @@
 #include <numeric>  // std::reduce
 #include <vector>  // std::vector
 
+#include "vector/vector.hpp"
+
 namespace benlib
 {
 template<typename T>
