@@ -5,7 +5,7 @@ include(FetchContent)
 FetchContent_Declare(
   googletest
   GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG 548b13dc3c02b93f60eeff9a0cc6e11c1ea722ca) # 01-06-2022
+  GIT_TAG 4219e7254cb8c473f57f6065bd13d1520d7b708f) # 01-07-2022
 
 # Disable tests on gtest
 set(gtest_build_tests

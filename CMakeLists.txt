@@ -13,6 +13,15 @@ project(
 include(cmake/project-is-top-level.cmake)
 include(cmake/variables.cmake)
 
+# ---- Enable Utile ----
+include(cmake/utile/ccache.cmake)
+# include(cmake/utile/lto.cmake)
+# include(cmake/utile/ninja_color.cmake)
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
 # ---- Declare library ----
 
 add_library(vector_vector INTERFACE)

@@ -50,6 +50,17 @@ public:
     vec.content[index] = val;
     return *this;
   }
+
+  bool operator==(const T val) const
+  {
+    return vec.content[index] == val;
+  }
+
+  bool operator!=(const T val) const
+  {
+    return vec.content[index] != val;
+  }
+
   ~MultiVectorView() {}
 };
 
@@ -63,7 +74,7 @@ public:
       : dimensions(dimensions_)
   {
     // Multiply dimensions together.
-    auto size = std::reduce(
+    const auto&& size = std::reduce(
         dimensions_.begin(), dimensions_.end(), 1, std::multiplies<uint64_t>());
 
     content.resize(size);
@@ -98,24 +109,40 @@ public:
   }
 
   // Resize
-  void Resize(std::vector<uint64_t> dimensions_)
+  void resize(std::vector<uint64_t> dimensions_)
   {
     dimensions = dimensions_;
-    uint64_t size = dimensions[0];
-    for (uint64_t i = 1; i < dimensions.size(); ++i)
-      size *= dimensions[i];
+    const auto&& size = std::reduce(
+        dimensions_.begin(), dimensions_.end(), 1, std::multiplies<uint64_t>());
 
     content.resize(size);
   }
 
-  void fill(const T value)
+  void fill(const T& value)
   {
     std::fill(content.begin(), content.end(), value);
   }
 
+  /*
+  std::vector<T>::iterator begin()
+  {
+    return content.begin();
+  }
+
+  std::vector<T>::iterator end()
+  {
+    return content.end();
+  }
+  */
+
   void clear()
   {
     content.clear();
+  }
+
+  void shrink_to_fit()
+  {
+    content.shrink_to_fit();
   }
 
   std::vector<T>& GetGrid()
@@ -155,6 +182,11 @@ public:
       throw std::runtime_error("MultiVector: dimensions size does not match");
     */
     dimensions = dimensions_;
+  }
+
+  uint64_t size()
+  {
+    return content.size();
   }
 
   T GetValue(const std::vector<uint64_t>& indices)
