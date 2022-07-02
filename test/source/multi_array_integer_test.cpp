@@ -51,6 +51,15 @@ TEST(multi_array, advanced_1D_uint8_t)
   grid.fill(1);
   EXPECT_EQ(grid != grid2, true);
 
+  // Test the + operator.
+  grid.fill(2);
+  grid2.fill(2);
+
+  auto grid3 = grid + grid2;
+  for (uint64_t i = 0; i < gridsize; ++i) {
+    EXPECT_EQ(grid3.GetValue(i), 4);
+  }
+
   // Test the [] operator.
   for (uint64_t i = 0; i < width; ++i) {
     grid[i] = 42;
@@ -122,6 +131,15 @@ TEST(multi_array, advanced_1D_uint32_t)
   // Test the != operator.
   grid.fill(1);
   EXPECT_EQ(grid != grid2, true);
+
+  // Test the + operator.
+  grid.fill(2);
+  grid2.fill(2);
+
+  auto grid3 = grid + grid2;
+  for (uint64_t i = 0; i < gridsize; ++i) {
+    EXPECT_EQ(grid3.GetValue(i), 4);
+  }
 
   // Test the [] operator.
   for (uint64_t i = 0; i < width; ++i) {
@@ -196,6 +214,15 @@ TEST(multi_array, advanced_2D_uint8_t)
   grid.fill(1);
   EXPECT_EQ(grid != grid2, true);
 
+  // Test the + operator.
+  grid.fill(2);
+  grid2.fill(2);
+
+  auto grid3 = grid + grid2;
+  for (uint64_t i = 0; i < gridsize; ++i) {
+    EXPECT_EQ(grid3.GetValue(i), 4);
+  }
+
   // Test the [] operator.
   for (uint64_t i = 0; i < width; ++i) {
     grid[i][0] = 42;
@@ -269,6 +296,15 @@ TEST(multi_array, advanced_2D_uint32_t)
   grid.fill(1);
   EXPECT_EQ(grid != grid2, true);
 
+  // Test the + operator.
+  grid.fill(2);
+  grid2.fill(2);
+
+  auto grid3 = grid + grid2;
+  for (uint64_t i = 0; i < gridsize; ++i) {
+    EXPECT_EQ(grid3.GetValue(i), 4);
+  }
+
   // Test the [] operator.
   for (uint64_t i = 0; i < width; ++i) {
     grid[i][0] = 42;
@@ -339,6 +375,15 @@ TEST(multi_array, advanced_3D_uint8_t)
   grid.fill(1);
   EXPECT_EQ(grid != grid2, true);
 
+  // Test the + operator.
+  grid.fill(2);
+  grid2.fill(2);
+
+  auto grid3 = grid + grid2;
+  for (uint64_t i = 0; i < gridsize; ++i) {
+    EXPECT_EQ(grid3.GetValue(i), 4);
+  }
+
   // Test the [] operator.
   for (uint64_t i = 0; i < width; ++i) {
     grid[i][0][0] = 42;
@@ -408,6 +453,15 @@ TEST(multi_array, advanced_3D_uint32_t)
   // Test the != operator.
   grid.fill(1);
   EXPECT_EQ(grid != grid2, true);
+
+  // Test the + operator.
+  grid.fill(2);
+  grid2.fill(2);
+
+  auto grid3 = grid + grid2;
+  for (uint64_t i = 0; i < gridsize; ++i) {
+    EXPECT_EQ(grid3.GetValue(i), 4);
+  }
 
   // Test the [] operator.
   for (uint64_t i = 0; i < width; ++i) {
@@ -480,6 +534,15 @@ TEST(multi_array, advanced_4D_uint8_t)
   grid.fill(1);
   EXPECT_EQ(grid != grid2, true);
 
+  // Test the + operator.
+  grid.fill(2);
+  grid2.fill(2);
+
+  auto grid3 = grid + grid2;
+  for (uint64_t i = 0; i < gridsize; ++i) {
+    EXPECT_EQ(grid3.GetValue(i), 4);
+  }
+
   // Test the [] operator.
   for (uint64_t i = 0; i < width; ++i) {
     grid[i][0][0][0] = 42;
@@ -550,6 +613,15 @@ TEST(multi_array, advanced_4D_uint32_t)
   // Test the != operator.
   grid.fill(1);
   EXPECT_EQ(grid != grid2, true);
+
+  // Test the + operator.
+  grid.fill(2);
+  grid2.fill(2);
+
+  auto grid3 = grid + grid2;
+  for (uint64_t i = 0; i < gridsize; ++i) {
+    EXPECT_EQ(grid3.GetValue(i), 4);
+  }
 
   // Test the [] operator.
   for (uint64_t i = 0; i < width; ++i) {
@@ -623,6 +695,15 @@ TEST(multi_array, advanced_5D_uint8_t)
   grid.fill(1);
   EXPECT_EQ(grid != grid2, true);
 
+  // Test the + operator.
+  grid.fill(2);
+  grid2.fill(2);
+
+  auto grid3 = grid + grid2;
+  for (uint64_t i = 0; i < gridsize; ++i) {
+    EXPECT_EQ(grid3.GetValue(i), 4);
+  }
+
   // Test the [] operator.
   for (uint64_t i = 0; i < width; ++i) {
     grid[i][0][0][0][0] = 42;
@@ -694,6 +775,15 @@ TEST(multi_array, advanced_5D_uint32_t)
   // Test the != operator.
   grid.fill(1);
   EXPECT_EQ(grid != grid2, true);
+
+  // Test the + operator.
+  grid.fill(2);
+  grid2.fill(2);
+
+  auto grid3 = grid + grid2;
+  for (uint64_t i = 0; i < gridsize; ++i) {
+    EXPECT_EQ(grid3.GetValue(i), 4);
+  }
 
   // Test the [] operator.
   for (uint64_t i = 0; i < width; ++i) {

@@ -152,22 +152,16 @@ public:
 
   void SetGrid(const std::vector<T>& grid_)
   {
-    /*
-    if (grid_.size() != std::reduce(dimensions.begin(), dimensions.end(), 1,
-    std::multiplies<uint64_t>())) throw std::runtime_error("MultiVector: content
-    size does not match dimensions");
-    */
+    // if (grid_.size() != std::reduce(dimensions.begin(),
+    // dimensions.end(),1,std::multiplies<uint64_t>())) throw
+    // std::runtime_error("MultiVector: content size does not match
+    // dimensions");
     content = grid_;
   }
 
   std::vector<T>* GetGridPtr()
   {
     return &content;
-  }
-
-  std::vector<T> CopyGrid()
-  {
-    return content;
   }
 
   std::vector<uint64_t>& GetDim()
@@ -177,10 +171,9 @@ public:
 
   void SetDim(const std::vector<uint64_t>& dimensions_)
   {
-    /*
-    if (dimensions_.size() != dimensions.size())
-      throw std::runtime_error("MultiVector: dimensions size does not match");
-    */
+    // if (dimensions_.size() != dimensions.size())
+    //   throw std::runtime_error("MultiVector: dimensions size does not
+    //   match");
     dimensions = dimensions_;
   }
 
@@ -244,6 +237,77 @@ public:
       content = other.content;
       dimensions = other.dimensions;
     }
+    return *this;
+  }
+
+  // Overload + operator
+  MultiVector<T> operator+(const MultiVector<T>& other)
+  {
+    // if (dimensions != other.dimensions)
+    //   throw std::runtime_error("MultiVector: dimensions size does not
+    //   match");
+    MultiVector<T> result(dimensions);
+    for (uint64_t i = 0; i < content.size(); ++i)
+      result.content[i] = content[i] + other.content[i];
+    return result;
+  }
+
+  // Overload - operator
+  MultiVector<T> operator-(const MultiVector<T>& other)
+  {
+    // if (dimensions != other.dimensions)
+    //   throw std::runtime_error("MultiVector: dimensions size does not
+    //   match");
+    MultiVector<T> result(dimensions);
+    for (uint64_t i = 0; i < content.size(); ++i)
+      result.content[i] = content[i] - other.content[i];
+    return result;
+  }
+
+  // Overload * operator
+  MultiVector<T> operator*(const MultiVector<T>& other)
+  {
+    // if (dimensions != other.dimensions)
+    //   throw std::runtime_error("MultiVector: dimensions size does not
+    //   match");
+    MultiVector<T> result(dimensions);
+    for (uint64_t i = 0; i < content.size(); ++i)
+      result.content[i] = content[i] * other.content[i];
+    return result;
+  }
+
+  // Overload / operator
+  MultiVector<T> operator/(const MultiVector<T>& other)
+  {
+    // if (dimensions != other.dimensions)
+    //   throw std::runtime_error("MultiVector: dimensions size does not
+    //   match");
+    MultiVector<T> result(dimensions);
+    for (uint64_t i = 0; i < content.size(); ++i)
+      result.content[i] = content[i] / other.content[i];
+    return result;
+  }
+
+  // Overload % operator
+  MultiVector<T> operator%(const MultiVector<T>& other)
+  {
+    // if (dimensions != other.dimensions)
+    //   throw std::runtime_error("MultiVector: dimensions size does not
+    //   match");
+    MultiVector<T> result(dimensions);
+    for (uint64_t i = 0; i < content.size(); ++i)
+      result.content[i] = content[i] % other.content[i];
+    return result;
+  }
+
+  // Overload += operator
+  MultiVector<T>& operator+=(const MultiVector<T>& other)
+  {
+    // if (dimensions != other.dimensions)
+    //   throw std::runtime_error("MultiVector: dimensions size does not
+    //   match");
+    for (uint64_t i = 0; i < content.size(); ++i)
+      content[i] += other.content[i];
     return *this;
   }
 
