@@ -5,7 +5,7 @@
 
 #include <benchmark/benchmark.h>
 
-static void multi_array_setvalue2D(benchmark::State& state)
+static void multi_array_setvalue_uint32_t_2D(benchmark::State& state)
 {
   const auto width = static_cast<uint64_t>(state.range(0));
   const auto height = static_cast<uint64_t>(state.range(0));
@@ -25,8 +25,62 @@ static void multi_array_setvalue2D(benchmark::State& state)
   state.SetBytesProcessed(state.iterations() * width * height
                           * sizeof(uint32_t));
 }
-BENCHMARK(multi_array_setvalue2D)
-    ->Name("multi_array_setvalue2D")
+BENCHMARK(multi_array_setvalue_uint32_t_2D)
+    ->Name("multi_array_setvalue_uint32_t_2D")
+    ->RangeMultiplier(8)
+    ->Range(8, 4096);
+
+static void multi_array_square_brace_uint32_t_2D(benchmark::State& state)
+{
+  const auto width = static_cast<uint64_t>(state.range(0));
+  const auto height = static_cast<uint64_t>(state.range(0));
+  std::vector<uint64_t> v = {width, height};
+  auto grid = benlib::multi_array<uint32_t>(v);
+  grid.fill(0);
+  benchmark::DoNotOptimize(grid);
+
+  for (auto _ : state) {
+    for (uint64_t i = 0; i < width; ++i) {
+      for (uint64_t j = 0; j < height; ++j) {
+        grid[i][j] = 42;
+      }
+    }
+    benchmark::ClobberMemory();
+  }
+
+  state.SetItemsProcessed(state.iterations() * width * height);
+  state.SetBytesProcessed(state.iterations() * width * height
+                          * sizeof(uint32_t));
+}
+BENCHMARK(multi_array_square_brace_uint32_t_2D)
+    ->Name("multi_array_square_brace_uint32_t_2D")
+    ->RangeMultiplier(8)
+    ->Range(8, 4096);
+
+static void multi_array_ptr_uint32_t_2D(benchmark::State& state)
+{
+  const auto width = static_cast<uint64_t>(state.range(0));
+  const auto height = static_cast<uint64_t>(state.range(0));
+  std::vector<uint64_t> v = {width, height};
+  auto grid = benlib::multi_array<uint32_t>(v);
+  grid.fill(0);
+  auto* ptr = grid.data();
+
+  benchmark::DoNotOptimize(ptr);
+
+  for (auto _ : state) {
+    for (uint64_t i = 0; i < width * height; ++i) {
+      (*ptr)[i] = 42;
+    }
+    benchmark::ClobberMemory();
+  }
+
+  state.SetItemsProcessed(state.iterations() * width * height);
+  state.SetBytesProcessed(state.iterations() * width * height
+                          * sizeof(uint32_t));
+}
+BENCHMARK(multi_array_ptr_uint32_t_2D)
+    ->Name("multi_array_ptr_uint32_t_2D")
     ->RangeMultiplier(8)
     ->Range(8, 4096);
 

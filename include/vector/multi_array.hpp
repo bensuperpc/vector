@@ -95,7 +95,7 @@ public:
     content.shrink_to_fit();
   }
 
-  std::vector<T>& GetGrid()
+  std::vector<T> GetGrid()
   {
     return content;
   }
@@ -109,12 +109,18 @@ public:
     content = grid_;
   }
 
+  // To Remove later.
   std::vector<T>* GetGridPtr()
   {
     return &content;
   }
 
-  std::vector<uint64_t>& GetDim()
+  std::vector<T>* data()
+  {
+    return &content;
+  }
+
+  std::vector<uint64_t> GetDim()
   {
     return dimensions;
   }
@@ -132,7 +138,7 @@ public:
     return content.size();
   }
 
-  T GetValue(const std::vector<uint64_t>& indices)
+  T GetValue(const std::vector<uint64_t> indices)
   {
     uint64_t index = 0;
     uint64_t index_multiplyer = 1;
@@ -148,7 +154,7 @@ public:
     return content[index];
   }
 
-  void SetValue(const std::vector<uint64_t>& indices, T value)
+  void SetValue(const std::vector<uint64_t> indices, T value)
   {
     uint64_t index = 0;
     uint64_t index_multiplyer = 1;
@@ -164,7 +170,7 @@ public:
     content[index] = value;
   }
 
-  bool IsEqual(const multi_array<T>& other)
+  bool IsEqual(const multi_array<T> other)
   {
     if (dimensions != other.dimensions) {
       return false;
@@ -175,13 +181,19 @@ public:
     return true;
   }
 
+  void swap(multi_array<T>& other)
+  {
+    dimensions.swap(other.dimensions);
+    content.swap(other.content);
+  }
+
   multi_array_view<T> operator[](uint64_t index)
   {
     return multi_array_view<T>(*this, index, 1);
   }
 
   // Overload = operator
-  multi_array<T>& operator=(const multi_array<T>& other)
+  multi_array<T> operator=(const multi_array<T>& other)
   {
     if (this != &other) {
       content = other.content;
@@ -251,7 +263,7 @@ public:
   }
 
   // Overload += operator
-  multi_array<T>& operator+=(const multi_array<T>& other)
+  multi_array<T> operator+=(const multi_array<T>& other)
   {
     // if (dimensions != other.dimensions)
     //   throw std::runtime_error("multi_array: dimensions size does not
