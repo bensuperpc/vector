@@ -41,6 +41,18 @@ public:
     */
   }
 
+  multi_array(multi_array<T>&& other)
+      : dimensions(std::move(other.dimensions))
+      , content(std::move(other.content))
+  {
+  }
+
+  multi_array(const multi_array<T>& other)
+      : dimensions(other.dimensions)
+      , content(other.content)
+  {
+  }
+
   // Variadic constructor
   multi_array(int argSize, ...)
   {
@@ -120,6 +132,35 @@ public:
     return &content;
   }
 
+  uint64_t size() const
+  {
+    return content.size();
+  }
+
+  uint64_t ConvertTo1DCoordinate(const std::vector<uint64_t> &coordinates) const
+  {
+    uint64_t coordinate = 0;
+    for (uint64_t i = 0; i < coordinates.size(); ++i) {
+      coordinate += coordinates[i]
+          * std::accumulate(dimensions.begin() + i + 1,
+                            dimensions.end(),
+                            1,
+                            std::multiplies<uint64_t>());
+    }
+    return coordinate;
+  }
+
+  uint64_t ConvertTo1DCoordinate(int argSize, ...) const
+  {
+    va_list args;
+    va_start(args, argSize);
+    std::vector<uint64_t> coordinates(argSize);
+    for (int i = 0; i < argSize; ++i)
+      coordinates[i] = va_arg(args, int);
+    va_end(args);
+    return ConvertTo1DCoordinate(coordinates);
+  }
+
   std::vector<uint64_t> GetDim()
   {
     return dimensions;
@@ -133,12 +174,7 @@ public:
     dimensions = dimensions_;
   }
 
-  uint64_t size()
-  {
-    return content.size();
-  }
-
-  T GetValue(const std::vector<uint64_t> indices)
+  T GetValue(const std::vector<uint64_t>& indices)
   {
     uint64_t index = 0;
     uint64_t index_multiplyer = 1;
@@ -154,7 +190,7 @@ public:
     return content[index];
   }
 
-  void SetValue(const std::vector<uint64_t> indices, T value)
+  void SetValue(const std::vector<uint64_t>& indices, T value)
   {
     uint64_t index = 0;
     uint64_t index_multiplyer = 1;
@@ -170,7 +206,7 @@ public:
     content[index] = value;
   }
 
-  bool IsEqual(const multi_array<T> other)
+  bool IsEqual(const multi_array<T>& other)
   {
     if (dimensions != other.dimensions) {
       return false;

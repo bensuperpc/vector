@@ -26,7 +26,7 @@ public:
   uint64_t index;
   uint64_t dimension;
 
-  multi_array_view& operator[](std::uint64_t n_index)
+  multi_array_view& operator[](const std::uint64_t n_index)
   {
     uint64_t index_multiplyer = 1;
     for (uint64_t i = 0; i < dimension; ++i)
@@ -41,18 +41,18 @@ public:
     return vec.content[index];
   }
 
-  multi_array_view& operator=(T val)
+  multi_array_view& operator=(const T& val)
   {
     vec.content[index] = val;
     return *this;
   }
 
-  bool operator==(const T val) const
+  bool operator==(const T& val) const
   {
     return vec.content[index] == val;
   }
 
-  bool operator!=(const T val) const
+  bool operator!=(const T& val) const
   {
     return vec.content[index] != val;
   }
