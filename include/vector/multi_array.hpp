@@ -138,6 +138,11 @@ public:
     return &content;
   }
 
+  std::vector<uint64_t>* data_dim()
+  {
+    return &dimensions;
+  }
+
   uint64_t size() const
   {
     return content.size();
