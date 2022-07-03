@@ -9,7 +9,7 @@
 namespace benlib
 {
 template<typename T, bool mersenne_64 = true>
-void random(std::vector<T> vect, const T& fMin, const T& fMax)
+void random(std::vector<T> &vect, const T& fMin, const T& fMax)
 {
   typedef typename std::conditional<mersenne_64 == true,
                                     std::mt19937_64,
