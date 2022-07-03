@@ -20,6 +20,12 @@ template<typename T>
 class multi_array
 {
 public:
+  multi_array()
+      : content()
+      , dimensions()
+  {
+  }
+
   multi_array(std::vector<uint64_t> dimensions_)
       : dimensions(dimensions_)
   {
@@ -137,7 +143,7 @@ public:
     return content.size();
   }
 
-  uint64_t ConvertTo1DCoordinate(const std::vector<uint64_t> &coordinates) const
+  uint64_t ConvertTo1DCoordinate(const std::vector<uint64_t>& coordinates) const
   {
     uint64_t coordinate = 0;
     for (uint64_t i = 0; i < coordinates.size(); ++i) {
