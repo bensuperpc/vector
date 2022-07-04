@@ -16,12 +16,12 @@ TEST(multi_array, advanced_1D_uint8_t)
 
   // Test fill
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid.GetValue(i), 96);
+    EXPECT_EQ(grid.get_value(i), 96);
   }
 
   // Test set value
-  grid.SetValue(0, 42);
-  EXPECT_EQ(grid.GetValue(0), 42);
+  grid.set_value(0, 42);
+  EXPECT_EQ(grid.get_value(0), 42);
 
   // Test Size
   EXPECT_EQ(grid.size(), gridsize);
@@ -44,8 +44,8 @@ TEST(multi_array, advanced_1D_uint8_t)
   grid.fill(0);
   EXPECT_EQ(grid == grid2, true);
 
-  // Test IsEqual
-  EXPECT_EQ(grid.IsEqual(grid2), true);
+  // Test is_equal
+  EXPECT_EQ(grid.is_equal(grid2), true);
 
   // Test the != operator.
   grid.fill(1);
@@ -57,7 +57,7 @@ TEST(multi_array, advanced_1D_uint8_t)
 
   auto grid3 = grid + grid2;
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid3.GetValue(i), 4);
+    EXPECT_EQ(grid3.get_value(i), 4);
   }
 
   // Test the [] operator.
@@ -66,12 +66,12 @@ TEST(multi_array, advanced_1D_uint8_t)
     EXPECT_EQ(grid[i], 42);
   }
 
-  // Test the GetValue() function.
-  EXPECT_EQ(grid.GetValue(0), 42);
+  // Test the get_value() function.
+  EXPECT_EQ(grid.get_value(0), 42);
 
-  // Test the SetValue() function.
-  grid.SetValue(1, 71);
-  EXPECT_EQ(grid.GetValue(1), 71);
+  // Test the set_value() function.
+  grid.set_value(1, 71);
+  EXPECT_EQ(grid.get_value(1), 71);
 
   // Test the GetGrid() function.
   auto grid_copy = grid.GetGrid();
@@ -97,12 +97,12 @@ TEST(multi_array, advanced_1D_uint32_t)
 
   // Test fill
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid.GetValue(i), 96);
+    EXPECT_EQ(grid.get_value(i), 96);
   }
 
   // Test set value
-  grid.SetValue(0, 42);
-  EXPECT_EQ(grid.GetValue(0), 42);
+  grid.set_value(0, 42);
+  EXPECT_EQ(grid.get_value(0), 42);
 
   // Test Size
   EXPECT_EQ(grid.size(), gridsize);
@@ -125,8 +125,8 @@ TEST(multi_array, advanced_1D_uint32_t)
   grid.fill(0);
   EXPECT_EQ(grid == grid2, true);
 
-  // Test IsEqual
-  EXPECT_EQ(grid.IsEqual(grid2), true);
+  // Test is_equal
+  EXPECT_EQ(grid.is_equal(grid2), true);
 
   // Test the != operator.
   grid.fill(1);
@@ -138,7 +138,7 @@ TEST(multi_array, advanced_1D_uint32_t)
 
   auto grid3 = grid + grid2;
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid3.GetValue(i), 4);
+    EXPECT_EQ(grid3.get_value(i), 4);
   }
 
   // Test the [] operator.
@@ -147,12 +147,12 @@ TEST(multi_array, advanced_1D_uint32_t)
     EXPECT_EQ(grid[i], 42);
   }
 
-  // Test the GetValue() function.
-  EXPECT_EQ(grid.GetValue(0), 42);
+  // Test the get_value() function.
+  EXPECT_EQ(grid.get_value(0), 42);
 
-  // Test the SetValue() function.
-  grid.SetValue(1, 71);
-  EXPECT_EQ(grid.GetValue(1), 71);
+  // Test the set_value() function.
+  grid.set_value(1, 71);
+  EXPECT_EQ(grid.get_value(1), 71);
 
   // Test the GetGrid() function.
   auto grid_copy = grid.GetGrid();
@@ -179,12 +179,12 @@ TEST(multi_array, advanced_2D_uint8_t)
 
   // Test fill
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid.GetValue(i), 96);
+    EXPECT_EQ(grid.get_value(i), 96);
   }
 
   // Test set value
-  grid.SetValue(0, 42);
-  EXPECT_EQ(grid.GetValue(0), 42);
+  grid.set_value(0, 42);
+  EXPECT_EQ(grid.get_value(0), 42);
 
   // Test Size
   EXPECT_EQ(grid.size(), gridsize);
@@ -207,8 +207,8 @@ TEST(multi_array, advanced_2D_uint8_t)
   grid.fill(0);
   EXPECT_EQ(grid == grid2, true);
 
-  // Test IsEqual
-  EXPECT_EQ(grid.IsEqual(grid2), true);
+  // Test is_equal
+  EXPECT_EQ(grid.is_equal(grid2), true);
 
   // Test the != operator.
   grid.fill(1);
@@ -220,7 +220,7 @@ TEST(multi_array, advanced_2D_uint8_t)
 
   auto grid3 = grid + grid2;
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid3.GetValue(i), 4);
+    EXPECT_EQ(grid3.get_value(i), 4);
   }
 
   // Test the [] operator.
@@ -229,12 +229,12 @@ TEST(multi_array, advanced_2D_uint8_t)
     EXPECT_EQ(grid[i][0], 42);
   }
 
-  // Test the GetValue() function.
-  EXPECT_EQ(grid.GetValue(0), 42);
+  // Test the get_value() function.
+  EXPECT_EQ(grid.get_value(0), 42);
 
-  // Test the SetValue() function.
-  grid.SetValue(1, 71);
-  EXPECT_EQ(grid.GetValue(1), 71);
+  // Test the set_value() function.
+  grid.set_value(1, 71);
+  EXPECT_EQ(grid.get_value(1), 71);
 
   // Test the GetGrid() function.
   auto grid_copy = grid.GetGrid();
@@ -261,12 +261,12 @@ TEST(multi_array, advanced_2D_uint32_t)
 
   // Test fill
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid.GetValue(i), 96);
+    EXPECT_EQ(grid.get_value(i), 96);
   }
 
   // Test set value
-  grid.SetValue(0, 42);
-  EXPECT_EQ(grid.GetValue(0), 42);
+  grid.set_value(0, 42);
+  EXPECT_EQ(grid.get_value(0), 42);
 
   // Test Size
   EXPECT_EQ(grid.size(), gridsize);
@@ -289,8 +289,8 @@ TEST(multi_array, advanced_2D_uint32_t)
   grid.fill(0);
   EXPECT_EQ(grid == grid2, true);
 
-  // Test IsEqual
-  EXPECT_EQ(grid.IsEqual(grid2), true);
+  // Test is_equal
+  EXPECT_EQ(grid.is_equal(grid2), true);
 
   // Test the != operator.
   grid.fill(1);
@@ -302,7 +302,7 @@ TEST(multi_array, advanced_2D_uint32_t)
 
   auto grid3 = grid + grid2;
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid3.GetValue(i), 4);
+    EXPECT_EQ(grid3.get_value(i), 4);
   }
 
   // Test the [] operator.
@@ -311,12 +311,12 @@ TEST(multi_array, advanced_2D_uint32_t)
     EXPECT_EQ(grid[i][0], 42);
   }
 
-  // Test the GetValue() function.
-  EXPECT_EQ(grid.GetValue(0), 42);
+  // Test the get_value() function.
+  EXPECT_EQ(grid.get_value(0), 42);
 
-  // Test the SetValue() function.
-  grid.SetValue(1, 71);
-  EXPECT_EQ(grid.GetValue(1), 71);
+  // Test the set_value() function.
+  grid.set_value(1, 71);
+  EXPECT_EQ(grid.get_value(1), 71);
 
   // Test the GetGrid() function.
   auto grid_copy = grid.GetGrid();
@@ -344,7 +344,7 @@ TEST(multi_array, advanced_3D_uint8_t)
 
   // Test fill
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid.GetValue(i), 96);
+    EXPECT_EQ(grid.get_value(i), 96);
   }
 
   // Test Size
@@ -368,8 +368,8 @@ TEST(multi_array, advanced_3D_uint8_t)
   grid.fill(0);
   EXPECT_EQ(grid == grid2, true);
 
-  // Test IsEqual
-  EXPECT_EQ(grid.IsEqual(grid2), true);
+  // Test is_equal
+  EXPECT_EQ(grid.is_equal(grid2), true);
 
   // Test the != operator.
   grid.fill(1);
@@ -381,7 +381,7 @@ TEST(multi_array, advanced_3D_uint8_t)
 
   auto grid3 = grid + grid2;
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid3.GetValue(i), 4);
+    EXPECT_EQ(grid3.get_value(i), 4);
   }
 
   // Test the [] operator.
@@ -390,12 +390,12 @@ TEST(multi_array, advanced_3D_uint8_t)
     EXPECT_EQ(grid[i][0][0], 42);
   }
 
-  // Test the GetValue() function.
-  EXPECT_EQ(grid.GetValue(0), 42);
+  // Test the get_value() function.
+  EXPECT_EQ(grid.get_value(0), 42);
 
-  // Test the SetValue() function.
-  grid.SetValue(1, 71);
-  EXPECT_EQ(grid.GetValue(1), 71);
+  // Test the set_value() function.
+  grid.set_value(1, 71);
+  EXPECT_EQ(grid.get_value(1), 71);
 
   // Test the GetGrid() function.
   auto grid_copy = grid.GetGrid();
@@ -423,7 +423,7 @@ TEST(multi_array, advanced_3D_uint32_t)
 
   // Test fill
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid.GetValue(i), 96);
+    EXPECT_EQ(grid.get_value(i), 96);
   }
 
   // Test Size
@@ -447,8 +447,8 @@ TEST(multi_array, advanced_3D_uint32_t)
   grid.fill(0);
   EXPECT_EQ(grid == grid2, true);
 
-  // Test IsEqual
-  EXPECT_EQ(grid.IsEqual(grid2), true);
+  // Test is_equal
+  EXPECT_EQ(grid.is_equal(grid2), true);
 
   // Test the != operator.
   grid.fill(1);
@@ -460,7 +460,7 @@ TEST(multi_array, advanced_3D_uint32_t)
 
   auto grid3 = grid + grid2;
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid3.GetValue(i), 4);
+    EXPECT_EQ(grid3.get_value(i), 4);
   }
 
   // Test the [] operator.
@@ -469,12 +469,12 @@ TEST(multi_array, advanced_3D_uint32_t)
     EXPECT_EQ(grid[i][0][0], 42);
   }
 
-  // Test the GetValue() function.
-  EXPECT_EQ(grid.GetValue(0), 42);
+  // Test the get_value() function.
+  EXPECT_EQ(grid.get_value(0), 42);
 
-  // Test the SetValue() function.
-  grid.SetValue(1, 71);
-  EXPECT_EQ(grid.GetValue(1), 71);
+  // Test the set_value() function.
+  grid.set_value(1, 71);
+  EXPECT_EQ(grid.get_value(1), 71);
 
   // Test the GetGrid() function.
   auto grid_copy = grid.GetGrid();
@@ -503,7 +503,7 @@ TEST(multi_array, advanced_4D_uint8_t)
 
   // Test fill
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid.GetValue(i), 96);
+    EXPECT_EQ(grid.get_value(i), 96);
   }
 
   // Test Size
@@ -527,8 +527,8 @@ TEST(multi_array, advanced_4D_uint8_t)
   grid.fill(0);
   EXPECT_EQ(grid == grid2, true);
 
-  // Test IsEqual
-  EXPECT_EQ(grid.IsEqual(grid2), true);
+  // Test is_equal
+  EXPECT_EQ(grid.is_equal(grid2), true);
 
   // Test the != operator.
   grid.fill(1);
@@ -540,7 +540,7 @@ TEST(multi_array, advanced_4D_uint8_t)
 
   auto grid3 = grid + grid2;
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid3.GetValue(i), 4);
+    EXPECT_EQ(grid3.get_value(i), 4);
   }
 
   // Test the [] operator.
@@ -549,12 +549,12 @@ TEST(multi_array, advanced_4D_uint8_t)
     EXPECT_EQ(grid[i][0][0][0], 42);
   }
 
-  // Test the GetValue() function.
-  EXPECT_EQ(grid.GetValue(0), 42);
+  // Test the get_value() function.
+  EXPECT_EQ(grid.get_value(0), 42);
 
-  // Test the SetValue() function.
-  grid.SetValue(1, 71);
-  EXPECT_EQ(grid.GetValue(1), 71);
+  // Test the set_value() function.
+  grid.set_value(1, 71);
+  EXPECT_EQ(grid.get_value(1), 71);
 
   // Test the GetGrid() function.
   auto grid_copy = grid.GetGrid();
@@ -583,7 +583,7 @@ TEST(multi_array, advanced_4D_uint32_t)
 
   // Test fill
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid.GetValue(i), 96);
+    EXPECT_EQ(grid.get_value(i), 96);
   }
 
   // Test Size
@@ -607,8 +607,8 @@ TEST(multi_array, advanced_4D_uint32_t)
   grid.fill(0);
   EXPECT_EQ(grid == grid2, true);
 
-  // Test IsEqual
-  EXPECT_EQ(grid.IsEqual(grid2), true);
+  // Test is_equal
+  EXPECT_EQ(grid.is_equal(grid2), true);
 
   // Test the != operator.
   grid.fill(1);
@@ -620,7 +620,7 @@ TEST(multi_array, advanced_4D_uint32_t)
 
   auto grid3 = grid + grid2;
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid3.GetValue(i), 4);
+    EXPECT_EQ(grid3.get_value(i), 4);
   }
 
   // Test the [] operator.
@@ -629,12 +629,12 @@ TEST(multi_array, advanced_4D_uint32_t)
     EXPECT_EQ(grid[i][0][0][0], 42);
   }
 
-  // Test the GetValue() function.
-  EXPECT_EQ(grid.GetValue(0), 42);
+  // Test the get_value() function.
+  EXPECT_EQ(grid.get_value(0), 42);
 
-  // Test the SetValue() function.
-  grid.SetValue(1, 71);
-  EXPECT_EQ(grid.GetValue(1), 71);
+  // Test the set_value() function.
+  grid.set_value(1, 71);
+  EXPECT_EQ(grid.get_value(1), 71);
 
   // Test the GetGrid() function.
   auto grid_copy = grid.GetGrid();
@@ -664,7 +664,7 @@ TEST(multi_array, advanced_5D_uint8_t)
 
   // Test fill
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid.GetValue(i), 96);
+    EXPECT_EQ(grid.get_value(i), 96);
   }
 
   // Test Size
@@ -688,8 +688,8 @@ TEST(multi_array, advanced_5D_uint8_t)
   grid.fill(0);
   EXPECT_EQ(grid == grid2, true);
 
-  // Test IsEqual
-  EXPECT_EQ(grid.IsEqual(grid2), true);
+  // Test is_equal
+  EXPECT_EQ(grid.is_equal(grid2), true);
 
   // Test the != operator.
   grid.fill(1);
@@ -701,7 +701,7 @@ TEST(multi_array, advanced_5D_uint8_t)
 
   auto grid3 = grid + grid2;
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid3.GetValue(i), 4);
+    EXPECT_EQ(grid3.get_value(i), 4);
   }
 
   // Test the [] operator.
@@ -710,12 +710,12 @@ TEST(multi_array, advanced_5D_uint8_t)
     EXPECT_EQ(grid[i][0][0][0][0], 42);
   }
 
-  // Test the GetValue() function.
-  EXPECT_EQ(grid.GetValue(0), 42);
+  // Test the get_value() function.
+  EXPECT_EQ(grid.get_value(0), 42);
 
-  // Test the SetValue() function.
-  grid.SetValue(1, 71);
-  EXPECT_EQ(grid.GetValue(1), 71);
+  // Test the set_value() function.
+  grid.set_value(1, 71);
+  EXPECT_EQ(grid.get_value(1), 71);
 
   // Test the GetGrid() function.
   auto grid_copy = grid.GetGrid();
@@ -745,7 +745,7 @@ TEST(multi_array, advanced_5D_uint32_t)
 
   // Test fill
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid.GetValue(i), 96);
+    EXPECT_EQ(grid.get_value(i), 96);
   }
 
   // Test Size
@@ -769,8 +769,8 @@ TEST(multi_array, advanced_5D_uint32_t)
   grid.fill(0);
   EXPECT_EQ(grid == grid2, true);
 
-  // Test IsEqual
-  EXPECT_EQ(grid.IsEqual(grid2), true);
+  // Test is_equal
+  EXPECT_EQ(grid.is_equal(grid2), true);
 
   // Test the != operator.
   grid.fill(1);
@@ -782,7 +782,7 @@ TEST(multi_array, advanced_5D_uint32_t)
 
   auto grid3 = grid + grid2;
   for (uint64_t i = 0; i < gridsize; ++i) {
-    EXPECT_EQ(grid3.GetValue(i), 4);
+    EXPECT_EQ(grid3.get_value(i), 4);
   }
 
   // Test the [] operator.
@@ -791,12 +791,12 @@ TEST(multi_array, advanced_5D_uint32_t)
     EXPECT_EQ(grid[i][0][0][0][0], 42);
   }
 
-  // Test the GetValue() function.
-  EXPECT_EQ(grid.GetValue(0), 42);
+  // Test the get_value() function.
+  EXPECT_EQ(grid.get_value(0), 42);
 
-  // Test the SetValue() function.
-  grid.SetValue(1, 71);
-  EXPECT_EQ(grid.GetValue(1), 71);
+  // Test the set_value() function.
+  grid.set_value(1, 71);
+  EXPECT_EQ(grid.get_value(1), 71);
 
   // Test the GetGrid() function.
   auto grid_copy = grid.GetGrid();

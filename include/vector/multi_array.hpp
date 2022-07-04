@@ -10,6 +10,10 @@
 #include "vector/multi_array_view.hpp"
 #include "vector/vector.hpp"
 
+#if __has_include("omp.h")
+#  include <omp.h>
+#endif
+
 namespace benlib
 {
 
@@ -30,8 +34,7 @@ public:
       : dimensions(dimensions_)
   {
     // Multiply dimensions together.
-    const auto&& size = std::reduce(
-        dimensions_.begin(), dimensions_.end(), 1, std::multiplies<uint64_t>());
+    const auto&& size = std::reduce(dimensions_.begin(), dimensions_.end(), 1, std::multiplies<uint64_t>());
 
     content.resize(size);
   }
@@ -80,8 +83,7 @@ public:
   void resize(std::vector<uint64_t> dimensions_)
   {
     dimensions = dimensions_;
-    const auto&& size = std::reduce(
-        dimensions_.begin(), dimensions_.end(), 1, std::multiplies<uint64_t>());
+    const auto&& size = std::reduce(dimensions_.begin(), dimensions_.end(), 1, std::multiplies<uint64_t>());
 
     content.resize(size);
   }
@@ -143,25 +145,27 @@ public:
     return &dimensions;
   }
 
-  uint64_t size() const
+  uint64_t size()
   {
     return content.size();
   }
 
-  uint64_t ConvertTo1DCoordinate(const std::vector<uint64_t>& coordinates) const
+  uint64_t size_dim()
+  {
+    return dimensions.size();
+  }
+
+  uint64_t convert_to_1D_coordinate(const std::vector<uint64_t>& coordinates)
   {
     uint64_t coordinate = 0;
     for (uint64_t i = 0; i < coordinates.size(); ++i) {
       coordinate += coordinates[i]
-          * std::accumulate(dimensions.begin() + i + 1,
-                            dimensions.end(),
-                            1,
-                            std::multiplies<uint64_t>());
+          * std::accumulate(dimensions.begin() + i + 1, dimensions.end(), 1, std::multiplies<uint64_t>());
     }
     return coordinate;
   }
 
-  uint64_t ConvertTo1DCoordinate(int argSize, ...) const
+  uint64_t convert_to_1D_coordinate(int argSize, ...)
   {
     va_list args;
     va_start(args, argSize);
@@ -169,7 +173,7 @@ public:
     for (int i = 0; i < argSize; ++i)
       coordinates[i] = va_arg(args, int);
     va_end(args);
-    return ConvertTo1DCoordinate(coordinates);
+    return convert_to_1D_coordinate(coordinates);
   }
 
   std::vector<uint64_t> GetDim()
@@ -177,7 +181,7 @@ public:
     return dimensions;
   }
 
-  void SetDim(const std::vector<uint64_t>& dimensions_)
+  void set_dim(const std::vector<uint64_t>& dimensions_)
   {
     // if (dimensions_.size() != dimensions.size())
     //   throw std::runtime_error("multi_array: dimensions size does not
@@ -185,7 +189,7 @@ public:
     dimensions = dimensions_;
   }
 
-  T GetValue(const std::vector<uint64_t>& indices)
+  T get_value(const std::vector<uint64_t>& indices)
   {
     uint64_t index = 0;
     uint64_t index_multiplyer = 1;
@@ -196,12 +200,12 @@ public:
     return content[index];
   }
 
-  T GetValue(const uint64_t index)
+  T get_value(const uint64_t index)
   {
     return content[index];
   }
 
-  void SetValue(const std::vector<uint64_t>& indices, T value)
+  void set_value(const std::vector<uint64_t>& indices, T value)
   {
     uint64_t index = 0;
     uint64_t index_multiplyer = 1;
@@ -212,12 +216,12 @@ public:
     content[index] = value;
   }
 
-  void SetValue(uint64_t index, T value)
+  void set_value(uint64_t index, T value)
   {
     content[index] = value;
   }
 
-  bool IsEqual(const multi_array<T>& other)
+  bool is_equal(const multi_array<T>& other)
   {
     if (dimensions != other.dimensions) {
       return false;
@@ -256,8 +260,12 @@ public:
     //   throw std::runtime_error("multi_array: dimensions size does not
     //   match");
     multi_array<T> result(dimensions);
-    for (uint64_t i = 0; i < content.size(); ++i)
+#if defined(_OPENMP)
+#  pragma omp parallel for schedule(auto)
+#endif
+    for (uint64_t i = 0; i < content.size(); ++i) {
       result.content[i] = content[i] + other.content[i];
+    }
     return result;
   }
 
@@ -268,8 +276,12 @@ public:
     //   throw std::runtime_error("multi_array: dimensions size does not
     //   match");
     multi_array<T> result(dimensions);
-    for (uint64_t i = 0; i < content.size(); ++i)
+#if defined(_OPENMP)
+#  pragma omp parallel for schedule(auto)
+#endif
+    for (uint64_t i = 0; i < content.size(); ++i) {
       result.content[i] = content[i] - other.content[i];
+    }
     return result;
   }
 
@@ -280,8 +292,12 @@ public:
     //   throw std::runtime_error("multi_array: dimensions size does not
     //   match");
     multi_array<T> result(dimensions);
-    for (uint64_t i = 0; i < content.size(); ++i)
+#if defined(_OPENMP)
+#  pragma omp parallel for schedule(auto)
+#endif
+    for (uint64_t i = 0; i < content.size(); ++i) {
       result.content[i] = content[i] * other.content[i];
+    }
     return result;
   }
 
@@ -292,8 +308,12 @@ public:
     //   throw std::runtime_error("multi_array: dimensions size does not
     //   match");
     multi_array<T> result(dimensions);
-    for (uint64_t i = 0; i < content.size(); ++i)
+#if defined(_OPENMP)
+#  pragma omp parallel for schedule(auto)
+#endif
+    for (uint64_t i = 0; i < content.size(); ++i) {
       result.content[i] = content[i] / other.content[i];
+    }
     return result;
   }
 
@@ -304,8 +324,12 @@ public:
     //   throw std::runtime_error("multi_array: dimensions size does not
     //   match");
     multi_array<T> result(dimensions);
-    for (uint64_t i = 0; i < content.size(); ++i)
+#if defined(_OPENMP)
+#  pragma omp parallel for schedule(auto)
+#endif
+    for (uint64_t i = 0; i < content.size(); ++i) {
       result.content[i] = content[i] % other.content[i];
+    }
     return result;
   }
 

@@ -9,7 +9,7 @@
 #//                                                          //
 #//  Script, 2022                                            //
 #//  Created: 19, April, 2022                                //
-#//  Modified: 07, June, 2022                                //
+#//  Modified: 04, July, 2022                                //
 #//  file: -                                                 //
 #//  -                                                       //
 #//  Source:                                                 //
@@ -20,80 +20,89 @@
 
 PARALLEL := 1
 
+GENERATOR := Ninja
+
 .PHONY: build
 build: base
 
 .PHONY: all
-all: release debug minsizerel coverage relwithdebinfo minsizerel relwithdebinfo release-clang debug-clang base base-clang sanitize
+all: release debug minsizerel coverage relwithdebinfo minsizerel relwithdebinfo release-clang debug-clang base base-clang sanitize sanitize-clang gprof
 
 .PHONY: base
 base:
-	cmake --preset=base
+	cmake --preset=$@ -G $(GENERATOR)
 	cmake --build build/$@
 	ctest --output-on-failure --verbose --parallel $(PARALLEL) --test-dir build/$@
 
 .PHONY: base-clang
 base-clang:
-	cmake --preset=base-clang
+	cmake --preset=$@ -G $(GENERATOR)
 	cmake --build build/$@
 	ctest --output-on-failure --verbose --parallel $(PARALLEL) --test-dir build/$@
 
 .PHONY: release
 release:
-	cmake -B build/$@ -S . -G Ninja --preset=dev -DCMAKE_BUILD_TYPE=Release
+	cmake -B build/$@ -S . -G $(GENERATOR) --preset=base -DCMAKE_BUILD_TYPE=Release
 	ninja -C build/$@
 	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
 
 .PHONY: release-clang
 release-clang:
-	cmake -B build/$@ -S . -G Ninja --preset=dev -DCMAKE_BUILD_TYPE=Release \
+	cmake -B build/$@ -S . -G $(GENERATOR) --preset=base -DCMAKE_BUILD_TYPE=Release \
 	-DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
 	ninja -C build/$@
 	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
 
 .PHONY: debug
 debug:
-	cmake -B build/$@ -S . -G Ninja --preset=dev -DCMAKE_BUILD_TYPE=Debug
+	cmake -B build/$@ -S . -G $(GENERATOR) --preset=dev -DCMAKE_BUILD_TYPE=Debug
 	ninja -C build/$@
 	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
 
 .PHONY: debug-clang
 debug-clang:
-	cmake -B build/$@ -S . -G Ninja --preset=dev -DCMAKE_BUILD_TYPE=Debug \
+	cmake -B build/$@ -S . -G $(GENERATOR) --preset=dev -DCMAKE_BUILD_TYPE=Debug \
 	-DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
 	ninja -C build/$@
 	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
 
 .PHONY: coverage
 coverage:
-	cmake -B build/$@ -S . -G Ninja --preset=dev-coverage -DCMAKE_BUILD_TYPE=Coverage
+	cmake -B build/$@ -S . -G $(GENERATOR) --preset=dev-coverage -DCMAKE_BUILD_TYPE=Coverage
 	ninja -C build/$@
 	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
 	ninja -C build/$@ coverage
 
 .PHONY: sanitize
 sanitize:
-	cmake -B build/$@ -S . -G Ninja --preset=ci-sanitize
+	cmake -B build/$@ -S . -G $(GENERATOR) --preset=ci-sanitize
 	ninja -C build/$@
 	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
 
 sanitize-clang:
-	cmake -B build/$@ -S . -G Ninja --preset=ci-sanitize \
+	cmake -B build/$@ -S . -G $(GENERATOR) --preset=ci-sanitize \
 	-DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
 	ninja -C build/$@
 	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
 
 .PHONY: minsizerel
 minsizerel:
-	cmake -B build/$@ -S . -G Ninja --preset=dev -DCMAKE_BUILD_TYPE=MinSizeRel
+	cmake -B build/$@ -S . -G $(GENERATOR) --preset=dev -DCMAKE_BUILD_TYPE=MinSizeRel
 	ninja -C build/$@
 	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
 
 .PHONY: relwithdebinfo
 relwithdebinfo:
-	cmake -B build/$@ -S . -G Ninja --preset=dev -DCMAKE_BUILD_TYPE=RelWithDebInfo
+	cmake -B build/$@ -S . -G $(GENERATOR) --preset=dev -DCMAKE_BUILD_TYPE=RelWithDebInfo
 	ninja -C build/$@
 	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
+
+.PHONY: gprof
+gprof:
+	cmake --preset=$@ -G $(GENERATOR)
+	cmake --build build/$@
+	ctest --output-on-failure --verbose --parallel $(PARALLEL) --test-dir build/$@
+	echo "Run executable and after gprof <exe> gmon.out | less"
 
 .PHONY: lint
 lint:
@@ -103,6 +112,10 @@ lint:
 .PHONY: format
 format:
 	time find . -regex '.*\.\(cpp\|cxx\|hpp\|hxx\|c\|h\|cu\|cuh\|cuhpp\|tpp\)' -not -path '*/build/*' | parallel clang-format -style=file -i {} \;
+
+.PHONY: update
+update:
+	git pull --recurse-submodules --all --progress
 
 .PHONY: clean
 clean:

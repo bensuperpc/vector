@@ -11,9 +11,7 @@ namespace benlib
 template<typename T, bool mersenne_64 = true>
 void random(std::vector<T>& vect, const T& fMin, const T& fMax)
 {
-  typedef typename std::conditional<mersenne_64 == true,
-                                    std::mt19937_64,
-                                    std::mt19937>::type random_engine;
+  typedef typename std::conditional<mersenne_64 == true, std::mt19937_64, std::mt19937>::type random_engine;
   std::random_device rnd_device;
   random_engine rng;
   rng.seed(rnd_device());

@@ -20,6 +20,8 @@ function(add_example NAME)
   add_dependencies(run-examples "run_${NAME}")
 endfunction()
 
-add_example(empty_example)
+add_example(basic_2D_example)
+add_example(basic_3D_example)
+add_example(basic_128D_example)
 
 add_folders(Example)
