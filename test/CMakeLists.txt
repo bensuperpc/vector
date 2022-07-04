@@ -13,6 +13,8 @@ if(PROJECT_IS_TOP_LEVEL)
   enable_testing()
 endif()
 
+find_package(OpenMP 3.0)
+
 # ---- Tests ----
 
 #add_executable(vector_test source/vector_test.cpp)

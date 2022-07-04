@@ -97,44 +97,6 @@ static void multi_array_fill_uint8_t_2D(benchmark::State& state)
 }
 BENCHMARK(multi_array_fill_uint8_t_2D)->Name("multi_array_fill_uint8_t_2D")->RangeMultiplier(8)->Range(8, 4096);
 
-static void multi_array_fill_uint16_t_2D(benchmark::State& state)
-{
-  const auto width = static_cast<uint64_t>(state.range(0));
-  const auto height = static_cast<uint64_t>(state.range(0));
-  std::vector<uint64_t> v = {width, height};
-  auto grid = benlib::multi_array<uint16_t>(v);
-  grid.fill(0);
-  benchmark::DoNotOptimize(grid);
-
-  for (auto _ : state) {
-    grid.fill(42);
-    benchmark::ClobberMemory();
-  }
-
-  state.SetItemsProcessed(state.iterations() * width * height);
-  state.SetBytesProcessed(state.iterations() * width * height * sizeof(uint8_t));
-}
-BENCHMARK(multi_array_fill_uint16_t_2D)->Name("multi_array_fill_uint16_t_2D")->RangeMultiplier(8)->Range(8, 4096);
-
-static void multi_array_fill_uint32_t_2D(benchmark::State& state)
-{
-  const auto width = static_cast<uint64_t>(state.range(0));
-  const auto height = static_cast<uint64_t>(state.range(0));
-  std::vector<uint64_t> v = {width, height};
-  auto grid = benlib::multi_array<uint32_t>(v);
-  grid.fill(0);
-  benchmark::DoNotOptimize(grid);
-
-  for (auto _ : state) {
-    grid.fill(42);
-    benchmark::ClobberMemory();
-  }
-
-  state.SetItemsProcessed(state.iterations() * width * height);
-  state.SetBytesProcessed(state.iterations() * width * height * sizeof(uint32_t));
-}
-BENCHMARK(multi_array_fill_uint32_t_2D)->Name("multi_array_fill_uint32_t_2D")->RangeMultiplier(8)->Range(8, 4096);
-
 static void multi_array_fill_uint64_t_2D(benchmark::State& state)
 {
   const auto width = static_cast<uint64_t>(state.range(0));
@@ -153,3 +115,103 @@ static void multi_array_fill_uint64_t_2D(benchmark::State& state)
   state.SetBytesProcessed(state.iterations() * width * height * sizeof(uint32_t));
 }
 BENCHMARK(multi_array_fill_uint64_t_2D)->Name("multi_array_fill_uint64_t_2D")->RangeMultiplier(8)->Range(8, 4096);
+
+static void multi_array_add_operator_uint64_t_2D(benchmark::State& state)
+{
+  const auto width = static_cast<uint64_t>(state.range(0));
+  const auto height = static_cast<uint64_t>(state.range(0));
+  std::vector<uint64_t> v = {width, height};
+  auto gridA = benlib::multi_array<uint64_t>(v);
+  gridA.fill(10);
+  benchmark::DoNotOptimize(gridA);
+  auto gridB = benlib::multi_array<uint64_t>(v);
+  gridB.fill(32);
+  benchmark::DoNotOptimize(gridB);
+
+  for (auto _ : state) {
+    gridA = gridA + gridB;
+    benchmark::ClobberMemory();
+  }
+
+  state.SetItemsProcessed(state.iterations() * width * height);
+  state.SetBytesProcessed(state.iterations() * width * height * sizeof(uint64_t));
+}
+BENCHMARK(multi_array_add_operator_uint64_t_2D)
+    ->Name("multi_array_add_operator_uint64_t_2D")
+    ->RangeMultiplier(8)
+    ->Range(8, 4096);
+
+static void multi_array_sub_operator_uint64_t_2D(benchmark::State& state)
+{
+  const auto width = static_cast<uint64_t>(state.range(0));
+  const auto height = static_cast<uint64_t>(state.range(0));
+  std::vector<uint64_t> v = {width, height};
+  auto gridA = benlib::multi_array<uint64_t>(v);
+  gridA.fill(64);
+  benchmark::DoNotOptimize(gridA);
+  auto gridB = benlib::multi_array<uint64_t>(v);
+  gridB.fill(10);
+  benchmark::DoNotOptimize(gridB);
+
+  for (auto _ : state) {
+    gridA = gridA - gridB;
+    benchmark::ClobberMemory();
+  }
+
+  state.SetItemsProcessed(state.iterations() * width * height);
+  state.SetBytesProcessed(state.iterations() * width * height * sizeof(uint64_t));
+}
+BENCHMARK(multi_array_sub_operator_uint64_t_2D)
+    ->Name("multi_array_sub_operator_uint64_t_2D")
+    ->RangeMultiplier(8)
+    ->Range(8, 4096);
+
+static void multi_array_mult_operator_uint64_t_2D(benchmark::State& state)
+{
+  const auto width = static_cast<uint64_t>(state.range(0));
+  const auto height = static_cast<uint64_t>(state.range(0));
+  std::vector<uint64_t> v = {width, height};
+  auto gridA = benlib::multi_array<uint64_t>(v);
+  gridA.fill(128);
+  benchmark::DoNotOptimize(gridA);
+  auto gridB = benlib::multi_array<uint64_t>(v);
+  gridB.fill(5);
+  benchmark::DoNotOptimize(gridB);
+
+  for (auto _ : state) {
+    gridA = gridA * gridB;
+    benchmark::ClobberMemory();
+  }
+
+  state.SetItemsProcessed(state.iterations() * width * height);
+  state.SetBytesProcessed(state.iterations() * width * height * sizeof(uint64_t));
+}
+BENCHMARK(multi_array_mult_operator_uint64_t_2D)
+    ->Name("multi_array_mult_operator_uint64_t_2D")
+    ->RangeMultiplier(8)
+    ->Range(8, 4096);
+
+static void multi_array_div_operator_uint64_t_2D(benchmark::State& state)
+{
+  const auto width = static_cast<uint64_t>(state.range(0));
+  const auto height = static_cast<uint64_t>(state.range(0));
+  std::vector<uint64_t> v = {width, height};
+  auto gridA = benlib::multi_array<uint64_t>(v);
+  gridA.fill(128);
+  benchmark::DoNotOptimize(gridA);
+  auto gridB = benlib::multi_array<uint64_t>(v);
+  gridB.fill(8);
+  benchmark::DoNotOptimize(gridB);
+
+  for (auto _ : state) {
+    gridA = gridA / gridB;
+    benchmark::ClobberMemory();
+  }
+
+  state.SetItemsProcessed(state.iterations() * width * height);
+  state.SetBytesProcessed(state.iterations() * width * height * sizeof(uint64_t));
+}
+BENCHMARK(multi_array_div_operator_uint64_t_2D)
+    ->Name("multi_array_div_operator_uint64_t_2D")
+    ->RangeMultiplier(8)
+    ->Range(8, 4096);
