@@ -22,6 +22,9 @@ PARALLEL := 1
 
 GENERATOR := Ninja
 
+CTEST_TIMEOUT := 1500
+CTEST_OPTIONS := --output-on-failure --verbose
+
 .PHONY: build
 build: base
 
@@ -32,76 +35,76 @@ all: release debug minsizerel coverage relwithdebinfo minsizerel relwithdebinfo 
 base:
 	cmake --preset=$@ -G $(GENERATOR)
 	cmake --build build/$@
-	ctest --output-on-failure --verbose --parallel $(PARALLEL) --test-dir build/$@
+	ctest $(CTEST_OPTIONS) --timeout $(CTEST_TIMEOUT) --parallel $(PARALLEL) --test-dir build/$@
 
 .PHONY: base-clang
 base-clang:
 	cmake --preset=$@ -G $(GENERATOR)
 	cmake --build build/$@
-	ctest --output-on-failure --verbose --parallel $(PARALLEL) --test-dir build/$@
+	ctest $(CTEST_OPTIONS) --timeout $(CTEST_TIMEOUT) --parallel $(PARALLEL) --test-dir build/$@
 
 .PHONY: release
 release:
 	cmake -B build/$@ -S . -G $(GENERATOR) --preset=base -DCMAKE_BUILD_TYPE=Release
-	ninja -C build/$@
-	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
+	cmake --build build/$@
+	ctest $(CTEST_OPTIONS) --timeout $(CTEST_TIMEOUT) --parallel $(PARALLEL) --test-dir build/$@
 
 .PHONY: release-clang
 release-clang:
 	cmake -B build/$@ -S . -G $(GENERATOR) --preset=base -DCMAKE_BUILD_TYPE=Release \
 	-DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
-	ninja -C build/$@
-	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
+	cmake --build build/$@
+	ctest $(CTEST_OPTIONS) --timeout $(CTEST_TIMEOUT) --parallel $(PARALLEL) --test-dir build/$@
 
 .PHONY: debug
 debug:
 	cmake -B build/$@ -S . -G $(GENERATOR) --preset=dev -DCMAKE_BUILD_TYPE=Debug
-	ninja -C build/$@
-	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
+	cmake --build build/$@
+	ctest $(CTEST_OPTIONS) --timeout $(CTEST_TIMEOUT) --parallel $(PARALLEL) --test-dir build/$@
 
 .PHONY: debug-clang
 debug-clang:
 	cmake -B build/$@ -S . -G $(GENERATOR) --preset=dev -DCMAKE_BUILD_TYPE=Debug \
 	-DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
-	ninja -C build/$@
-	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
+	cmake --build build/$@
+	ctest $(CTEST_OPTIONS) --timeout $(CTEST_TIMEOUT) --parallel $(PARALLEL) --test-dir build/$@
 
 .PHONY: coverage
 coverage:
 	cmake -B build/$@ -S . -G $(GENERATOR) --preset=dev-coverage -DCMAKE_BUILD_TYPE=Coverage
-	ninja -C build/$@
-	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
-	ninja -C build/$@ coverage
+	cmake --build build/$@
+	ctest $(CTEST_OPTIONS) --timeout $(CTEST_TIMEOUT) --parallel $(PARALLEL) --test-dir build/$@
+	cmake --build build/$@ --target coverage
 
 .PHONY: sanitize
 sanitize:
 	cmake -B build/$@ -S . -G $(GENERATOR) --preset=ci-sanitize
-	ninja -C build/$@
-	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
+	cmake --build build/$@
+	ctest $(CTEST_OPTIONS) --timeout $(CTEST_TIMEOUT) --parallel $(PARALLEL) --test-dir build/$@
 
 sanitize-clang:
 	cmake -B build/$@ -S . -G $(GENERATOR) --preset=ci-sanitize \
 	-DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
-	ninja -C build/$@
-	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
+	cmake --build build/$@
+	ctest $(CTEST_OPTIONS) --timeout $(CTEST_TIMEOUT) --parallel $(PARALLEL) --test-dir build/$@
 
 .PHONY: minsizerel
 minsizerel:
 	cmake -B build/$@ -S . -G $(GENERATOR) --preset=dev -DCMAKE_BUILD_TYPE=MinSizeRel
-	ninja -C build/$@
-	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
+	cmake --build build/$@
+	ctest $(CTEST_OPTIONS) --timeout $(CTEST_TIMEOUT) --parallel $(PARALLEL) --test-dir build/$@
 
 .PHONY: relwithdebinfo
 relwithdebinfo:
 	cmake -B build/$@ -S . -G $(GENERATOR) --preset=dev -DCMAKE_BUILD_TYPE=RelWithDebInfo
-	ninja -C build/$@
-	ctest --verbose --parallel $(PARALLEL) --test-dir build/$@
+	cmake --build build/$@
+	ctest $(CTEST_OPTIONS) --timeout $(CTEST_TIMEOUT) --parallel $(PARALLEL) --test-dir build/$@
 
 .PHONY: gprof
 gprof:
 	cmake --preset=$@ -G $(GENERATOR)
 	cmake --build build/$@
-	ctest --output-on-failure --verbose --parallel $(PARALLEL) --test-dir build/$@
+	ctest $(CTEST_OPTIONS) --timeout $(CTEST_TIMEOUT) --parallel $(PARALLEL) --test-dir build/$@
 	echo "Run executable and after gprof <exe> gmon.out | less"
 
 .PHONY: lint
@@ -119,4 +122,4 @@ update:
 
 .PHONY: clean
 clean:
-	rm -rf build
+	rm -rf build/*

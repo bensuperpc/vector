@@ -1,9 +1,12 @@
 #include <cstdint>  // uint32_t, uint64_t
+#include <random>  // std::mt19937
 #include <vector>  // std::vector
 
-#include "vector/multi_array.hpp"
+#include "vector/multi_array.hpp"  // benlib::multi_array
 
 #include <benchmark/benchmark.h>
+
+#include "vector/utils.hpp"  // _KB, _MB, _GB, _TB
 
 static void multi_array_set_value_uint32_t_2D(benchmark::State& state)
 {
@@ -27,7 +30,7 @@ static void multi_array_set_value_uint32_t_2D(benchmark::State& state)
 BENCHMARK(multi_array_set_value_uint32_t_2D)
     ->Name("multi_array_set_value_uint32_t_2D")
     ->RangeMultiplier(8)
-    ->Range(8, 4096);
+    ->Range(8, 4_KB);
 
 static void multi_array_square_brace_uint32_t_2D(benchmark::State& state)
 {
@@ -53,7 +56,7 @@ static void multi_array_square_brace_uint32_t_2D(benchmark::State& state)
 BENCHMARK(multi_array_square_brace_uint32_t_2D)
     ->Name("multi_array_square_brace_uint32_t_2D")
     ->RangeMultiplier(8)
-    ->Range(8, 4096);
+    ->Range(8, 4_KB);
 
 static void multi_array_ptr_uint32_t_2D(benchmark::State& state)
 {
@@ -76,7 +79,7 @@ static void multi_array_ptr_uint32_t_2D(benchmark::State& state)
   state.SetItemsProcessed(state.iterations() * width * height);
   state.SetBytesProcessed(state.iterations() * width * height * sizeof(uint32_t));
 }
-BENCHMARK(multi_array_ptr_uint32_t_2D)->Name("multi_array_ptr_uint32_t_2D")->RangeMultiplier(8)->Range(8, 4096);
+BENCHMARK(multi_array_ptr_uint32_t_2D)->Name("multi_array_ptr_uint32_t_2D")->RangeMultiplier(8)->Range(8, 4_KB);
 
 static void multi_array_fill_uint8_t_2D(benchmark::State& state)
 {
@@ -95,7 +98,7 @@ static void multi_array_fill_uint8_t_2D(benchmark::State& state)
   state.SetItemsProcessed(state.iterations() * width * height);
   state.SetBytesProcessed(state.iterations() * width * height * sizeof(uint8_t));
 }
-BENCHMARK(multi_array_fill_uint8_t_2D)->Name("multi_array_fill_uint8_t_2D")->RangeMultiplier(8)->Range(8, 4096);
+BENCHMARK(multi_array_fill_uint8_t_2D)->Name("multi_array_fill_uint8_t_2D")->RangeMultiplier(8)->Range(8, 4_KB);
 
 static void multi_array_fill_uint64_t_2D(benchmark::State& state)
 {
@@ -114,7 +117,7 @@ static void multi_array_fill_uint64_t_2D(benchmark::State& state)
   state.SetItemsProcessed(state.iterations() * width * height);
   state.SetBytesProcessed(state.iterations() * width * height * sizeof(uint32_t));
 }
-BENCHMARK(multi_array_fill_uint64_t_2D)->Name("multi_array_fill_uint64_t_2D")->RangeMultiplier(8)->Range(8, 4096);
+BENCHMARK(multi_array_fill_uint64_t_2D)->Name("multi_array_fill_uint64_t_2D")->RangeMultiplier(8)->Range(8, 4_KB);
 
 static void multi_array_add_operator_uint64_t_2D(benchmark::State& state)
 {
@@ -139,7 +142,7 @@ static void multi_array_add_operator_uint64_t_2D(benchmark::State& state)
 BENCHMARK(multi_array_add_operator_uint64_t_2D)
     ->Name("multi_array_add_operator_uint64_t_2D")
     ->RangeMultiplier(8)
-    ->Range(8, 4096);
+    ->Range(8, 4_KB);
 
 static void multi_array_sub_operator_uint64_t_2D(benchmark::State& state)
 {
@@ -164,7 +167,7 @@ static void multi_array_sub_operator_uint64_t_2D(benchmark::State& state)
 BENCHMARK(multi_array_sub_operator_uint64_t_2D)
     ->Name("multi_array_sub_operator_uint64_t_2D")
     ->RangeMultiplier(8)
-    ->Range(8, 4096);
+    ->Range(8, 4_KB);
 
 static void multi_array_mult_operator_uint64_t_2D(benchmark::State& state)
 {
@@ -189,7 +192,7 @@ static void multi_array_mult_operator_uint64_t_2D(benchmark::State& state)
 BENCHMARK(multi_array_mult_operator_uint64_t_2D)
     ->Name("multi_array_mult_operator_uint64_t_2D")
     ->RangeMultiplier(8)
-    ->Range(8, 4096);
+    ->Range(8, 4_KB);
 
 static void multi_array_div_operator_uint64_t_2D(benchmark::State& state)
 {
@@ -214,4 +217,4 @@ static void multi_array_div_operator_uint64_t_2D(benchmark::State& state)
 BENCHMARK(multi_array_div_operator_uint64_t_2D)
     ->Name("multi_array_div_operator_uint64_t_2D")
     ->RangeMultiplier(8)
-    ->Range(8, 4096);
+    ->Range(8, 4_KB);

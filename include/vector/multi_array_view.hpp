@@ -4,6 +4,8 @@
 #include <vector>  // std::vector
 
 #include "vector/multi_array.hpp"
+#include "vector/vector.hpp"
+#include "vector/vector_random.hpp"  // benlib::random
 
 namespace benlib
 {

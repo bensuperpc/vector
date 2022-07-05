@@ -58,6 +58,7 @@ include(../cmake/lib/benchmark.cmake)
   add_test_fn(multi_array_string_test)
   
   # Add bench
+  add_bench_fn(vector_random_bench)
   add_bench_fn(multi_array_bench)
 endif()
 

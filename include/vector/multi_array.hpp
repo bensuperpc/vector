@@ -34,7 +34,7 @@ public:
       : dimensions(dimensions_)
   {
     // Multiply dimensions together.
-    const auto&& size = std::reduce(dimensions_.begin(), dimensions_.end(), 1, std::multiplies<uint64_t>());
+    const auto&& size = benlib::multiplies<uint64_t>(dimensions);
 
     content.resize(size);
   }
@@ -83,7 +83,7 @@ public:
   void resize(std::vector<uint64_t> dimensions_)
   {
     dimensions = dimensions_;
-    const auto&& size = std::reduce(dimensions_.begin(), dimensions_.end(), 1, std::multiplies<uint64_t>());
+    const auto&& size = multiplies<uint64_t>(dimensions_);
 
     content.resize(size);
   }
@@ -93,17 +93,21 @@ public:
     std::fill(content.begin(), content.end(), value);
   }
 
-  /*
-  std::vector<T>::iterator begin()
+  template<typename R = std::mt19937_64>
+  void random(const T& fMin, const T& fMax)
+  {
+    benlib::random<T, R>(content, fMin, fMax);
+  }
+
+  constexpr typename std::vector<T>::iterator begin()
   {
     return content.begin();
   }
 
-  std::vector<T>::iterator end()
+  constexpr typename std::vector<T>::iterator end()
   {
     return content.end();
   }
-  */
 
   void clear()
   {
@@ -129,12 +133,6 @@ public:
     content = grid_;
   }
 
-  // To Remove later.
-  std::vector<T>* GetGridPtr()
-  {
-    return &content;
-  }
-
   std::vector<T>* data()
   {
     return &content;
@@ -145,12 +143,12 @@ public:
     return &dimensions;
   }
 
-  uint64_t size()
+  constexpr uint64_t size()
   {
     return content.size();
   }
 
-  uint64_t size_dim()
+  constexpr uint64_t size_dim()
   {
     return dimensions.size();
   }
@@ -189,7 +187,7 @@ public:
     dimensions = dimensions_;
   }
 
-  T get_value(const std::vector<uint64_t>& indices)
+  constexpr T get_value(const std::vector<uint64_t>& indices)
   {
     uint64_t index = 0;
     uint64_t index_multiplyer = 1;
@@ -221,7 +219,7 @@ public:
     content[index] = value;
   }
 
-  bool is_equal(const multi_array<T>& other)
+  constexpr bool is_equal(const multi_array<T>& other)
   {
     if (dimensions != other.dimensions) {
       return false;
@@ -339,8 +337,53 @@ public:
     // if (dimensions != other.dimensions)
     //   throw std::runtime_error("multi_array: dimensions size does not
     //   match");
+#if defined(_OPENMP)
+#  pragma omp parallel for schedule(auto)
+#endif
     for (uint64_t i = 0; i < content.size(); ++i)
       content[i] += other.content[i];
+    return *this;
+  }
+
+  // Overload *= operator
+  multi_array<T> operator*=(const multi_array<T>& other)
+  {
+    // if (dimensions != other.dimensions)
+    //   throw std::runtime_error("multi_array: dimensions size does not
+    //   match");
+#if defined(_OPENMP)
+#  pragma omp parallel for schedule(auto)
+#endif
+    for (uint64_t i = 0; i < content.size(); ++i)
+      content[i] *= other.content[i];
+    return *this;
+  }
+
+  // Overload -= operator
+  multi_array<T> operator-=(const multi_array<T>& other)
+  {
+    // if (dimensions != other.dimensions)
+    //   throw std::runtime_error("multi_array: dimensions size does not
+    //   match");
+#if defined(_OPENMP)
+#  pragma omp parallel for schedule(auto)
+#endif
+    for (uint64_t i = 0; i < content.size(); ++i)
+      content[i] -= other.content[i];
+    return *this;
+  }
+
+  // Overload /= operator
+  multi_array<T> operator/=(const multi_array<T>& other)
+  {
+    // if (dimensions != other.dimensions)
+    //   throw std::runtime_error("multi_array: dimensions size does not
+    //   match");
+#if defined(_OPENMP)
+#  pragma omp parallel for schedule(auto)
+#endif
+    for (uint64_t i = 0; i < content.size(); ++i)
+      content[i] /= other.content[i];
     return *this;
   }
 
