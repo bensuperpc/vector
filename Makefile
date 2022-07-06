@@ -69,6 +69,12 @@ debug-clang:
 	cmake --build build/$@
 	ctest $(CTEST_OPTIONS) --timeout $(CTEST_TIMEOUT) --parallel $(PARALLEL) --test-dir build/$@
 
+.PHONY: graph
+graph:
+	cmake --preset=base -G $(GENERATOR) --graphviz=build/base/graph/graph.dot
+	cmake --build build/base
+	dot -Tpng -o build/base/graph/graph.png build/base/graph/graph.dot
+
 .PHONY: coverage
 coverage:
 	cmake -B build/$@ -S . -G $(GENERATOR) --preset=dev-coverage -DCMAKE_BUILD_TYPE=Coverage
