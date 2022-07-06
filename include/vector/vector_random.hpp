@@ -23,10 +23,6 @@ void random(std::vector<T>& vect, const T& min, const T& max, R& rng)
     auto gen = [&dist, &rng]() { return dist(rng); };
     std::generate(vect.begin(), vect.end(), gen);
 
-  } else if (std::is_same<T, std::string>::value) {
-    std::uniform_int_distribution<uint8_t> dist(min, max);
-    auto gen = [&dist, &rng]() { return static_cast<std::string::value_type>(dist(rng)); };
-    std::generate(vect.begin(), vect.end(), gen);
   } else {
     // throw std::runtime_error("Benlib::random: Unsupported type.");
   }

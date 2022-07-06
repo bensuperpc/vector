@@ -33,7 +33,7 @@ TEST(multi_array, advanced_1D_uint8_t)
   EXPECT_EQ(grid.size(), gridsize);
 
   // Test the = operator.
-  auto grid2 = grid;
+  auto grid2 = benlib::multi_array<uint8_t>(grid);
   EXPECT_EQ(grid, grid2);
 
   // Test GetDimensions
@@ -809,4 +809,14 @@ TEST(multi_array, advanced_5D_uint32_t)
   grid.clear();
   EXPECT_EQ(grid.size(), 0);
   grid.shrink_to_fit();
+}
+
+TEST(multi_array, random_1D_uint32_t)
+{
+  uint64_t width = 5;
+  std::vector<uint64_t> v = {width};
+
+  auto grid = benlib::multi_array<uint32_t>(v);
+  grid.random(0, 100);
+  EXPECT_TRUE((grid[0] >= 0) && (grid[0] <= 100));
 }

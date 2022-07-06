@@ -18,11 +18,6 @@ constexpr std::size_t operator""_GB(unsigned long long v)
   return 1024u * 1024u * 1024u * v;
 }
 
-constexpr std::size_t operator""_TB(unsigned long long v)
-{
-  return 1024u * 1024u * 1024u * 1024u * v;
-}
-
 namespace benlib
 {
 }  // namespace benlib

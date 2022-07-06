@@ -54,8 +54,10 @@ if(NOT WIN32)
 include(../cmake/lib/gtest.cmake)
 include(../cmake/lib/benchmark.cmake)
   # Add tests
+  add_test_fn(vector_random_test)
   add_test_fn(multi_array_integer_test)
   add_test_fn(multi_array_string_test)
+  add_test_fn(utils_test)
   
   # Add bench
   add_bench_fn(vector_random_bench)
