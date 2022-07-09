@@ -41,7 +41,7 @@ target_include_directories(
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
 )
 
-target_compile_features(vector_vector INTERFACE cxx_std_17)
+target_compile_features(vector_vector INTERFACE cxx_std_20)
 
 # ---- Install rules ----
 
