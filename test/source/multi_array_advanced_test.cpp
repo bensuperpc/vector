@@ -818,5 +818,5 @@ TEST(multi_array, random_1D_uint32_t)
 
   auto grid = benlib::multi_array<uint32_t>(v);
   grid.random(0, 100);
-  EXPECT_TRUE((grid[0] >= 0) && (grid[0] <= 100));
+  EXPECT_TRUE((grid[0] > 0) && (grid[0] <= 100));
 }

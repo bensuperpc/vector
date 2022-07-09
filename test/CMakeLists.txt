@@ -55,13 +55,14 @@ include(../cmake/lib/gtest.cmake)
 include(../cmake/lib/benchmark.cmake)
   # Add tests
   add_test_fn(vector_random_test)
-  add_test_fn(multi_array_integer_test)
-  add_test_fn(multi_array_string_test)
+  add_test_fn(multi_array_advanced_test)
+  add_test_fn(multi_array_basic_test)
   add_test_fn(utils_test)
+  add_test_fn(rtree_test)
   
   # Add bench
-  add_bench_fn(vector_random_bench)
-  add_bench_fn(multi_array_bench)
+  #add_bench_fn(vector_random_bench)
+  #add_bench_fn(multi_array_bench)
 endif()
 
 

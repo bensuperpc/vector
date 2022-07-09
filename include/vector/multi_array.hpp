@@ -1,3 +1,23 @@
+//////////////////////////////////////////////////////////////
+//   ____                                                   //
+//  | __ )  ___ _ __  ___ _   _ _ __   ___ _ __ _ __   ___  //
+//  |  _ \ / _ \ '_ \/ __| | | | '_ \ / _ \ '__| '_ \ / __| //
+//  | |_) |  __/ | | \__ \ |_| | |_) |  __/ |  | |_) | (__  //
+//  |____/ \___|_| |_|___/\__,_| .__/ \___|_|  | .__/ \___| //
+//                             |_|             |_|          //
+//////////////////////////////////////////////////////////////
+//                                                          //
+//  Vector, 2022                                            //
+//  Created: 01, July, 2022                                 //
+//  Modified: 09, July, 2022                                //
+//                                                          //
+//  License: MIT                                            //
+//  Source: https://stackoverflow.com/a/48458939/10152334   //
+//  OS: ALL                                                 //
+//  CPU: ALL                                                //
+//                                                          //
+//////////////////////////////////////////////////////////////
+
 #ifndef BENLIB_MULTIDIMVECTOR_HPP_
 #define BENLIB_MULTIDIMVECTOR_HPP_
 
@@ -119,7 +139,7 @@ public:
     content.shrink_to_fit();
   }
 
-  std::vector<T> GetGrid()
+  constexpr std::vector<T> GetGrid()
   {
     return content;
   }
@@ -153,7 +173,7 @@ public:
     return dimensions.size();
   }
 
-  uint64_t convert_to_1D_coordinate(const std::vector<uint64_t>& coordinates)
+  constexpr uint64_t convert_to_1D_coordinate(const std::vector<uint64_t>& coordinates)
   {
     uint64_t coordinate = 0;
     for (uint64_t i = 0; i < coordinates.size(); ++i) {
@@ -163,7 +183,7 @@ public:
     return coordinate;
   }
 
-  uint64_t convert_to_1D_coordinate(int argSize, ...)
+  constexpr uint64_t convert_to_1D_coordinate(int argSize, ...)
   {
     va_list args;
     va_start(args, argSize);
@@ -174,7 +194,7 @@ public:
     return convert_to_1D_coordinate(coordinates);
   }
 
-  std::vector<uint64_t> GetDim()
+  constexpr std::vector<uint64_t> GetDim()
   {
     return dimensions;
   }
@@ -198,7 +218,7 @@ public:
     return content[index];
   }
 
-  T get_value(const uint64_t index)
+  constexpr T get_value(const uint64_t index)
   {
     return content[index];
   }
