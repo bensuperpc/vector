@@ -19,7 +19,7 @@ find_package(OpenMP 3.0)
 
 #add_executable(vector_test source/vector_test.cpp)
 #target_link_libraries(vector_test PRIVATE benlib::vector)
-#target_compile_features(vector_test PRIVATE cxx_std_17)
+#target_compile_features(vector_test PRIVATE cxx_std_20)
 
 #add_test(NAME vector_test COMMAND vector_test)
 
