@@ -194,7 +194,7 @@ public:
     return convert_to_1D_coordinate(coordinates);
   }
 
-  std::vector<uint64_t> GetDim()
+  constexpr std::vector<uint64_t> GetDim()
   {
     return dimensions;
   }
