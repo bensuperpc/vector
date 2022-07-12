@@ -61,8 +61,8 @@ void random(std::vector<T>& vect, const T& min, const T& max)
 template<typename T, typename R = std::mt19937_64>
 void random(std::vector<T>& vect)
 {
-  constexpr auto min = std::numeric_limits<T>::min();
-  constexpr auto max = std::numeric_limits<T>::max();
+  const auto min = std::numeric_limits<T>::min();
+  const auto max = std::numeric_limits<T>::max();
 
   std::random_device rnd_device;
   R rng;

@@ -32,19 +32,19 @@ namespace benlib
 {
 
 template<typename T>
-constexpr T accumulate(const std::vector<T>& vec)
+T accumulate(const std::vector<T>& vec)
 {
   return std::accumulate(vec.begin(), vec.end(), 0);
 }
 
 template<typename T>
-constexpr T multiplies(const std::vector<T>& vec)
+T multiplies(const std::vector<T>& vec)
 {
   return std::reduce(vec.begin(), vec.end(), 1, std::multiplies<T>());
 }
 
 template<typename T>
-constexpr std::vector<T> multiplies(const std::vector<T>& vec, const std::vector<T>& vec2)
+std::vector<T> multiplies(const std::vector<T>& vec, const std::vector<T>& vec2)
 {
   std::vector<T> result(vec.size());
   std::transform(vec.begin(), vec.end(), vec2.begin(), result.begin(), std::multiplies<T>());
@@ -52,7 +52,7 @@ constexpr std::vector<T> multiplies(const std::vector<T>& vec, const std::vector
 }
 
 template<typename T>
-constexpr std::vector<T> sum(const std::vector<T>& vec, const std::vector<T>& vec2)
+std::vector<T> sum(const std::vector<T>& vec, const std::vector<T>& vec2)
 {
   std::vector<T> result(vec.size());
   std::transform(vec.begin(), vec.end(), vec2.begin(), result.begin(), std::plus<T>());
@@ -77,7 +77,7 @@ void print(const std::vector<std::vector<T>>& vec)
 }
 
 template<typename T>
-constexpr std::vector<T> convert_2D_to_1D(const std::vector<std::vector<T>>& vec)
+std::vector<T> convert_2D_to_1D(const std::vector<std::vector<T>>& vec)
 {
   std::vector<T> result(vec.size() * vec[0].size());
   for (typename std::vector<T>::size_type i = 0; i < vec.size(); ++i) {
@@ -87,7 +87,7 @@ constexpr std::vector<T> convert_2D_to_1D(const std::vector<std::vector<T>>& vec
 }
 
 template<typename T>
-constexpr std::vector<T> convert_3D_to_1D(const std::vector<std::vector<std::vector<T>>>& vec)
+std::vector<T> convert_3D_to_1D(const std::vector<std::vector<std::vector<T>>>& vec)
 {
   std::vector<T> result(vec.size() * vec[0].size() * vec[0][0].size());
   for (typename std::vector<T>::size_type i = 0; i < vec.size(); ++i) {
@@ -100,7 +100,7 @@ constexpr std::vector<T> convert_3D_to_1D(const std::vector<std::vector<std::vec
 
 /*
 template<typename T>
-constexpr auto plus = sum<T>;
+auto plus = sum<T>;
 */
 
 }  // namespace benlib

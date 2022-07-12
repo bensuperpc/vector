@@ -119,12 +119,12 @@ public:
     benlib::random<T, R>(content, fMin, fMax);
   }
 
-  constexpr typename std::vector<T>::iterator begin()
+  typename std::vector<T>::iterator begin()
   {
     return content.begin();
   }
 
-  constexpr typename std::vector<T>::iterator end()
+  typename std::vector<T>::iterator end()
   {
     return content.end();
   }
@@ -139,7 +139,7 @@ public:
     content.shrink_to_fit();
   }
 
-  constexpr std::vector<T> GetGrid()
+  std::vector<T> GetGrid()
   {
     return content;
   }
@@ -163,17 +163,17 @@ public:
     return &dimensions;
   }
 
-  constexpr uint64_t size()
+  uint64_t size()
   {
     return content.size();
   }
 
-  constexpr uint64_t size_dim()
+  uint64_t size_dim()
   {
     return dimensions.size();
   }
 
-  constexpr uint64_t convert_to_1D_coordinate(const std::vector<uint64_t>& coordinates)
+  uint64_t convert_to_1D_coordinate(const std::vector<uint64_t>& coordinates)
   {
     uint64_t coordinate = 0;
     for (uint64_t i = 0; i < coordinates.size(); ++i) {
@@ -183,7 +183,7 @@ public:
     return coordinate;
   }
 
-  constexpr uint64_t convert_to_1D_coordinate(int argSize, ...)
+  uint64_t convert_to_1D_coordinate(int argSize, ...)
   {
     va_list args;
     va_start(args, argSize);
@@ -194,7 +194,7 @@ public:
     return convert_to_1D_coordinate(coordinates);
   }
 
-  constexpr std::vector<uint64_t> GetDim()
+  std::vector<uint64_t> GetDim()
   {
     return dimensions;
   }
@@ -207,7 +207,7 @@ public:
     dimensions = dimensions_;
   }
 
-  constexpr T get_value(const std::vector<uint64_t>& indices)
+  T get_value(const std::vector<uint64_t>& indices)
   {
     uint64_t index = 0;
     uint64_t index_multiplyer = 1;
@@ -218,7 +218,7 @@ public:
     return content[index];
   }
 
-  constexpr T get_value(const uint64_t index)
+  T get_value(const uint64_t index)
   {
     return content[index];
   }
@@ -239,7 +239,7 @@ public:
     content[index] = value;
   }
 
-  constexpr bool is_equal(const multi_array<T>& other)
+  bool is_equal(const multi_array<T>& other)
   {
     if (dimensions != other.dimensions) {
       return false;

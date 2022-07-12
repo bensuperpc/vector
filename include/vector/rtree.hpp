@@ -89,7 +89,7 @@ public:
       nodes[coordinates[0]].insert(coordinates.begin() + 1, value);
     }
   }
-  constexpr bool is_in(const T& key)
+  bool is_in(const T& key)
   {
     const auto it = std::find(nodes.begin(), nodes.end(), key);
     if (it != nodes.end()) {
@@ -120,7 +120,7 @@ public:
   }
   */
 
-  constexpr uint64_t tree_depth()
+  uint64_t tree_depth()
   {
     if (nodes.size() == 0) {
       return 0;
@@ -133,7 +133,7 @@ public:
     }
   }
 
-  constexpr uint64_t node_count()
+  uint64_t node_count()
   {
     uint64_t count = nodes.size();
     for (auto& b : nodes) {
@@ -142,7 +142,7 @@ public:
     return count;
   }
 
-  constexpr uint64_t node_end_count()
+  uint64_t node_end_count()
   {
     if (nodes.size() == 0) {
       return 1;
@@ -155,7 +155,7 @@ public:
     }
   }
 
-  constexpr uint64_t size() const
+  uint64_t size() const
   {
     return nodes.size();
   }
@@ -175,11 +175,11 @@ public:
     return &nodes;
   }
 
-  constexpr typename std::vector<rtree<T>>::iterator begin()
+  typename std::vector<rtree<T>>::iterator begin()
   {
     return nodes.begin();
   }
-  constexpr typename std::vector<rtree<T>>::iterator end()
+  typename std::vector<rtree<T>>::iterator end()
   {
     return nodes.end();
   }
