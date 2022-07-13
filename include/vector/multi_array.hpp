@@ -211,6 +211,8 @@ public:
 
   void set_value(uint64_t index, T value) { content[index] = value; }
 
+  void set_value(uint64_t index, T& value) { content[index] = value; }
+
   bool is_equal(const multi_array<T>& other)
   {
     if (dimensions != other.dimensions) {
