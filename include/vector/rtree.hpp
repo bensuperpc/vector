@@ -57,10 +57,7 @@ public:
     }
   }
 
-  rtree(const rtree<T>& other)
-  {
-    nodes = other.nodes;
-  }
+  rtree(const rtree<T>& other) { nodes = other.nodes; }
 
   ~rtree() {}
 
@@ -155,34 +152,16 @@ public:
     }
   }
 
-  uint64_t size() const
-  {
-    return nodes.size();
-  }
+  uint64_t size() const { return nodes.size(); }
 
-  void clear()
-  {
-    nodes.clear();
-  }
+  void clear() { nodes.clear(); }
 
-  void shrink_to_fit()
-  {
-    nodes.shrink_to_fit();
-  }
+  void shrink_to_fit() { nodes.shrink_to_fit(); }
 
-  std::vector<T>* data()
-  {
-    return &nodes;
-  }
+  std::vector<T>* data() { return &nodes; }
 
-  typename std::vector<rtree<T>>::iterator begin()
-  {
-    return nodes.begin();
-  }
-  typename std::vector<rtree<T>>::iterator end()
-  {
-    return nodes.end();
-  }
+  typename std::vector<rtree<T>>::iterator begin() { return nodes.begin(); }
+  typename std::vector<rtree<T>>::iterator end() { return nodes.end(); }
 
   void swap(rtree<T>& other)
   {
@@ -190,10 +169,7 @@ public:
     swap(nodes, other.node);
   }
 
-  void resize(uint64_t size)
-  {
-    nodes.resize(size);
-  }
+  void resize(uint64_t size) { nodes.resize(size); }
 
   rtree<T>& operator=(const rtree<T>& other)
   {

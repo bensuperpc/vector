@@ -108,10 +108,7 @@ public:
     content.resize(size);
   }
 
-  void fill(const T& value)
-  {
-    std::fill(content.begin(), content.end(), value);
-  }
+  void fill(const T& value) { std::fill(content.begin(), content.end(), value); }
 
   template<typename R = std::mt19937_64>
   void random(const T& fMin, const T& fMax)
@@ -119,30 +116,15 @@ public:
     benlib::random<T, R>(content, fMin, fMax);
   }
 
-  typename std::vector<T>::iterator begin()
-  {
-    return content.begin();
-  }
+  typename std::vector<T>::iterator begin() { return content.begin(); }
 
-  typename std::vector<T>::iterator end()
-  {
-    return content.end();
-  }
+  typename std::vector<T>::iterator end() { return content.end(); }
 
-  void clear()
-  {
-    content.clear();
-  }
+  void clear() { content.clear(); }
 
-  void shrink_to_fit()
-  {
-    content.shrink_to_fit();
-  }
+  void shrink_to_fit() { content.shrink_to_fit(); }
 
-  std::vector<T> GetGrid()
-  {
-    return content;
-  }
+  std::vector<T> GetGrid() { return content; }
 
   void SetGrid(const std::vector<T>& grid_)
   {
@@ -153,25 +135,13 @@ public:
     content = grid_;
   }
 
-  std::vector<T>* data()
-  {
-    return &content;
-  }
+  std::vector<T>* data() { return &content; }
 
-  std::vector<uint64_t>* data_dim()
-  {
-    return &dimensions;
-  }
+  std::vector<uint64_t>* data_dim() { return &dimensions; }
 
-  uint64_t size()
-  {
-    return content.size();
-  }
+  uint64_t size() { return content.size(); }
 
-  uint64_t size_dim()
-  {
-    return dimensions.size();
-  }
+  uint64_t size_dim() { return dimensions.size(); }
 
   uint64_t convert_to_1D_coordinate(const std::vector<uint64_t>& coordinates)
   {
@@ -194,10 +164,7 @@ public:
     return convert_to_1D_coordinate(coordinates);
   }
 
-  std::vector<uint64_t> GetDim()
-  {
-    return dimensions;
-  }
+  std::vector<uint64_t> GetDim() { return dimensions; }
 
   void set_dim(const std::vector<uint64_t>& dimensions_)
   {
@@ -218,10 +185,7 @@ public:
     return content[index];
   }
 
-  T get_value(const uint64_t index)
-  {
-    return content[index];
-  }
+  T get_value(const uint64_t index) { return content[index]; }
 
   void set_value(const std::vector<uint64_t>& indices, T value)
   {
@@ -234,10 +198,18 @@ public:
     content[index] = value;
   }
 
-  void set_value(uint64_t index, T value)
+  void set_value(const std::vector<uint64_t>& indices, T& value)
   {
+    uint64_t index = 0;
+    uint64_t index_multiplyer = 1;
+    for (uint64_t i = 0; i < dimensions.size(); ++i) {
+      index += indices[i] * index_multiplyer;
+      index_multiplyer *= dimensions[i];
+    }
     content[index] = value;
   }
+
+  void set_value(uint64_t index, T value) { content[index] = value; }
 
   bool is_equal(const multi_array<T>& other)
   {
@@ -256,10 +228,7 @@ public:
     content.swap(other.content);
   }
 
-  multi_array_view<T> operator[](uint64_t index)
-  {
-    return multi_array_view<T>(*this, index, 1);
-  }
+  multi_array_view<T> operator[](uint64_t index) { return multi_array_view<T>(*this, index, 1); }
 
   // Overload = operator
   multi_array<T> operator=(const multi_array<T>& other)

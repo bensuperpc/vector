@@ -57,6 +57,8 @@ include(../cmake/lib/benchmark.cmake)
   add_test_fn(vector_random_test)
   add_test_fn(multi_array_advanced_test)
   add_test_fn(multi_array_basic_test)
+  add_test_fn(multi_array_smart_ptr_test)
+  
   add_test_fn(utils_test)
   add_test_fn(rtree_test)
   

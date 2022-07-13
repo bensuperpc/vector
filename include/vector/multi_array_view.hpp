@@ -58,10 +58,7 @@ public:
     return *this;
   }
 
-  operator T()
-  {
-    return vec.content[index];
-  }
+  operator T() { return vec.content[index]; }
 
   multi_array_view& operator=(const T& val)
   {
@@ -69,15 +66,9 @@ public:
     return *this;
   }
 
-  bool operator==(const T& val) const
-  {
-    return vec.content[index] == val;
-  }
+  bool operator==(const T& val) const { return vec.content[index] == val; }
 
-  bool operator!=(const T& val) const
-  {
-    return vec.content[index] != val;
-  }
+  bool operator!=(const T& val) const { return vec.content[index] != val; }
 
   ~multi_array_view() {}
 };
