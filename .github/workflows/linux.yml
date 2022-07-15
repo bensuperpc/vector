@@ -41,7 +41,7 @@ jobs:
 
     - name: Install Linux Dependencies
       if: runner.os == 'Linux'
-      run: sudo apt-get install xorg-dev libglu1-mesa-dev ninja-build -y
+      run: sudo apt-get update && sudo apt-get install xorg-dev libglu1-mesa-dev ninja-build -y
 
     - name: Configure
       run: cmake --preset=base ${{ matrix.platform.flags }} ${{ matrix.type.flags }} ${{ matrix.config.flags }}
