@@ -1,6 +1,8 @@
 # vector
 
-High performance multidimensional vectors in **C++17**, with **optional OpenMP acceleration** and **no external dependencies** (Except for testing).
+High performance vectors and multidimensional vectors in **C++17**, with **optional OpenMP acceleration** and **no external dependencies** (Except for testing).
+
+[![stability-experimental](https://img.shields.io/badge/stability-experimental-orange.svg)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#experimental) ![GitHub](https://img.shields.io/github/license/bensuperpc/vector)
 
 ## Examples
 
