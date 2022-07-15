@@ -12,7 +12,8 @@
 //  Modified: 09, July, 2022                                //
 //                                                          //
 //  License: MIT                                            //
-//  Source:                                                 //
+//  Source: https://stackoverflow.com/a/35687575/10152334   //
+//          https://www.fluentcpp.com/2017/10/27/function-aliases-cpp/ //
 //  OS: ALL                                                 //
 //  CPU: ALL                                                //
 //                                                          //
@@ -21,68 +22,72 @@
 #ifndef BENLIB_RANDOM_HPP_
 #define BENLIB_RANDOM_HPP_
 
-#include <algorithm>  // std::move, std::copy, std::fill
 #include <cstdint>  // uint8_t, uint64_t
 #include <random>  // std::mt19937, std::uniform_int_distribution
-#include <string>  // std::string
+#include <type_traits>
 
 namespace benlib
 {
 
-template<typename T, typename R = std::mt19937_64>
+template<typename T, typename G = std::mt19937_64>
 T random(const T& min, const T& max)
 {
-  R rng {std::random_device {}()};
+  thread_local static G rng(std::random_device {}());
+
+  using dist_type = typename std::conditional<std::is_integral<T>::value,
+                                              std::uniform_int_distribution<T>,
+                                              std::uniform_real_distribution<T> >::type;
+
+  thread_local static dist_type dist;
+
+  return dist(rng, typename dist_type::param_type {min, max});
+}
+
+template<typename T, typename G = std::mt19937_64>
+T random_v1(const T& min, const T& max)
+{
+  G rng {std::random_device {}()};
   if constexpr (std::is_integral<T>::value) {
     std::uniform_int_distribution<T> dist(min, max);
     return dist(rng);
-
-  } else if (std::is_floating_point<T>::value) {
+  } else {
     std::uniform_real_distribution<T> dist(min, max);
     return dist(rng);
-  } else {
-    // throw std::runtime_error("Benlib::random: Unsupported type.");
-    return T {};
   }
 }
 
-template<typename T, typename R = std::mt19937_64>
-T random(const T& min, const T& max, R& rng)
+template<typename T, typename G = std::mt19937_64>
+T random(const T& min, const T& max, G& rng)
 {
   if constexpr (std::is_integral<T>::value) {
     std::uniform_int_distribution<T> dist(min, max);
     return dist(rng);
 
-  } else if (std::is_floating_point<T>::value) {
+  } else {
     std::uniform_real_distribution<T> dist(min, max);
     return dist(rng);
-  } else {
-    // throw std::runtime_error("Benlib::random: Unsupported type.");
-    return T {};
   }
 }
 
-template<typename T, typename R = std::mt19937_64>
+template<typename T, typename G = std::mt19937_64>
 T random()
 {
   constexpr auto min = std::numeric_limits<T>::min();
   constexpr auto max = std::numeric_limits<T>::max();
 
-  R rng {std::random_device {}()};
-  if constexpr (std::is_integral<T>::value) {
-    std::uniform_int_distribution<T> dist(min, max);
-    return dist(rng);
-  } else if (std::is_floating_point<T>::value) {
-    std::uniform_real_distribution<T> dist(min, max);
-    return dist(rng);
-  } else {
-    // throw std::runtime_error("Benlib::random: Unsupported type.");
-    return T {};
-  }
+  thread_local static G gen(std::random_device {}());
+
+  using dist_type = typename std::conditional<std::is_integral<T>::value,
+                                              std::uniform_int_distribution<T>,
+                                              std::uniform_real_distribution<T> >::type;
+
+  thread_local static dist_type dist;
+
+  return dist(gen, typename dist_type::param_type {min, max});
 }
 
-template<typename T, typename R = std::mt19937_64>
-T random(R& rng)
+template<typename T, typename G = std::mt19937_64>
+T random(G& rng)
 {
   constexpr auto min = std::numeric_limits<T>::min();
   constexpr auto max = std::numeric_limits<T>::max();
@@ -90,14 +95,41 @@ T random(R& rng)
   if constexpr (std::is_integral<T>::value) {
     std::uniform_int_distribution<T> dist(min, max);
     return dist(rng);
-  } else if (std::is_floating_point<T>::value) {
+  } else {
     std::uniform_real_distribution<T> dist(min, max);
     return dist(rng);
-  } else {
-    // throw std::runtime_error("Benlib::random: Unsupported type.");
-    return T {};
   }
 }
+
+template<typename T, typename G = std::mt19937_64>
+T random_v2(const T& min, const T& max)
+{
+  return random<T, G>(min, max);
+}
+
+template<typename T, typename G = std::mt19937_64>
+T random_v2(G& rng)
+{
+  return random<T, G>(rng);
+}
+
+template<typename T, typename G = std::mt19937_64>
+T random_v2()
+{
+  return random<T, G>();
+}
+
+/*
+template<typename T, typename G = std::mt19937_64>
+constexpr auto random_v2 = random<T, G>;
+
+template<typename T, typename G = std::mt19937_64>
+constexpr T (*random_v2)(const T& min, const T& max) = &random<T, G>;
+
+
+template<typename T, typename G = std::mt19937_64>
+constexpr auto& random_v1 = random<T, G>;
+*/
 
 }  // namespace benlib
 #endif  // BENLIB_VECTOR_RANDOM_HPP_

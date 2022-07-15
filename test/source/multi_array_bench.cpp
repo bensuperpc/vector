@@ -253,7 +253,6 @@ static void multi_array_data_uint64_t_2D(benchmark::State& state)
   auto grid = benlib::multi_array<uint64_t>(v);
   grid.fill(rand() % 256);
   uint64_t* tmp = 0;
-  uint64_t index = width;
 
   for (auto _ : state) {
     benchmark::DoNotOptimize(tmp = grid.data(rand() % 8));

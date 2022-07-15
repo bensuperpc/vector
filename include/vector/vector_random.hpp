@@ -24,7 +24,6 @@
 #include <algorithm>  // std::move, std::copy, std::fill
 #include <cstdint>  // uint8_t, uint64_t
 #include <random>  // std::mt19937, std::uniform_int_distribution
-#include <string>  // std::string
 #include <vector>  // std::vector
 
 namespace benlib
@@ -51,11 +50,17 @@ void random(std::vector<T>& vect, const T& min, const T& max, R& rng)
 template<typename T, typename R = std::mt19937_64>
 void random(std::vector<T>& vect, const T& min, const T& max)
 {
-  std::random_device rnd_device;
-  R rng;
-  rng.seed(rnd_device());
+  thread_local static R rng(std::random_device {}());
 
-  random<T, R>(vect, min, max, rng);
+  using dist_type = typename std::conditional<std::is_integral<T>::value,
+                                              std::uniform_int_distribution<T>,
+                                              std::uniform_real_distribution<T> >::type;
+
+  thread_local static dist_type dist;
+
+  for (auto& elem : vect) {
+    elem = dist(rng, typename dist_type::param_type {min, max});
+  }
 }
 
 template<typename T, typename R = std::mt19937_64>
@@ -64,11 +69,17 @@ void random(std::vector<T>& vect)
   const auto min = std::numeric_limits<T>::min();
   const auto max = std::numeric_limits<T>::max();
 
-  std::random_device rnd_device;
-  R rng;
-  rng.seed(rnd_device());
+  thread_local static R rng(std::random_device {}());
 
-  random<T, R>(vect, min, max, rng);
+  using dist_type = typename std::conditional<std::is_integral<T>::value,
+                                              std::uniform_int_distribution<T>,
+                                              std::uniform_real_distribution<T> >::type;
+
+  thread_local static dist_type dist;
+
+  for (auto& elem : vect) {
+    elem = dist(rng, typename dist_type::param_type {min, max});
+  }
 }
 
 template<typename T, typename R = std::mt19937_64>
