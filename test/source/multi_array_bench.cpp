@@ -1,4 +1,5 @@
 #include <cstdint>  // uint32_t, uint64_t
+#include <cstdlib>  // std::rand
 #include <random>  // std::mt19937
 #include <vector>  // std::vector
 
@@ -218,3 +219,52 @@ BENCHMARK(multi_array_div_operator_uint64_t_2D)
     ->Name("multi_array_div_operator_uint64_t_2D")
     ->RangeMultiplier(8)
     ->Range(8, 4_KB);
+
+static void multi_array_get_value_uint64_t_2D(benchmark::State& state)
+{
+  const auto width = static_cast<uint64_t>(state.range(0));
+  const auto height = static_cast<uint64_t>(state.range(0));
+  std::vector<uint64_t> v = {width, height};
+  auto grid = benlib::multi_array<uint64_t>(v);
+  grid.fill(rand() % 256);
+  uint64_t tmp = 0;
+  benchmark::DoNotOptimize(grid);
+  benchmark::DoNotOptimize(tmp);
+
+  for (auto _ : state) {
+    benchmark::DoNotOptimize(tmp = grid.get_value(rand() % 8));
+    benchmark::ClobberMemory();
+  }
+
+  state.SetItemsProcessed(state.iterations() * width * height);
+  state.SetBytesProcessed(state.iterations() * width * height * sizeof(uint64_t));
+}
+BENCHMARK(multi_array_get_value_uint64_t_2D)
+    ->Name("multi_array_get_value_uint64_t_2D")
+    ->RangeMultiplier(8)
+    ->Range(8, 4_KB)
+    ->Threads(1);
+
+static void multi_array_data_uint64_t_2D(benchmark::State& state)
+{
+  const auto width = static_cast<uint64_t>(state.range(0));
+  const auto height = static_cast<uint64_t>(state.range(0));
+  std::vector<uint64_t> v = {width, height};
+  auto grid = benlib::multi_array<uint64_t>(v);
+  grid.fill(rand() % 256);
+  uint64_t* tmp = 0;
+  uint64_t index = width;
+
+  for (auto _ : state) {
+    benchmark::DoNotOptimize(tmp = grid.data(rand() % 8));
+    benchmark::ClobberMemory();
+  }
+
+  state.SetItemsProcessed(state.iterations() * width * height);
+  state.SetBytesProcessed(state.iterations() * width * height * sizeof(uint64_t));
+}
+BENCHMARK(multi_array_data_uint64_t_2D)
+    ->Name("multi_array_data_uint64_t_2D")
+    ->RangeMultiplier(8)
+    ->Range(8, 4_KB)
+    ->Threads(1);

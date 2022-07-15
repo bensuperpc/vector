@@ -65,6 +65,7 @@ include(../cmake/lib/benchmark.cmake)
   # Add bench
   add_bench_fn(vector_random_bench)
   add_bench_fn(multi_array_bench)
+  add_bench_fn(random_bench)
 endif()
 
 

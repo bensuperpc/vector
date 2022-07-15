@@ -124,9 +124,9 @@ public:
 
   void shrink_to_fit() { content.shrink_to_fit(); }
 
-  std::vector<T> GetGrid() { return content; }
+  std::vector<T> get_grid() { return content; }
 
-  void SetGrid(const std::vector<T>& grid_)
+  void set_grid(const std::vector<T>& grid_)
   {
     // if (grid_.size() != std::reduce(dimensions.begin(),
     // dimensions.end(),1,std::multiplies<uint64_t>())) throw
@@ -136,6 +136,8 @@ public:
   }
 
   std::vector<T>* data() { return &content; }
+
+  T* data(uint64_t index) { return &content[index]; }
 
   std::vector<uint64_t>* data_dim() { return &dimensions; }
 

@@ -73,12 +73,12 @@ TEST(multi_array, advanced_1D_uint8_t)
   grid.set_value(1, 71);
   EXPECT_EQ(grid.get_value(1), 71);
 
-  // Test the GetGrid() function.
-  auto grid_copy = grid.GetGrid();
+  // Test the get_grid() function.
+  auto grid_copy = grid.get_grid();
 
-  // Test the SetGrid() function.
-  grid.SetGrid(grid_copy);
-  EXPECT_EQ(grid.GetGrid(), grid_copy);
+  // Test the set_grid() function.
+  grid.set_grid(grid_copy);
+  EXPECT_EQ(grid.get_grid(), grid_copy);
 
   // Clear the grid.
   grid.clear();
@@ -154,12 +154,12 @@ TEST(multi_array, advanced_1D_uint32_t)
   grid.set_value(1, 71);
   EXPECT_EQ(grid.get_value(1), 71);
 
-  // Test the GetGrid() function.
-  auto grid_copy = grid.GetGrid();
+  // Test the get_grid() function.
+  auto grid_copy = grid.get_grid();
 
-  // Test the SetGrid() function.
-  grid.SetGrid(grid_copy);
-  EXPECT_EQ(grid.GetGrid(), grid_copy);
+  // Test the set_grid() function.
+  grid.set_grid(grid_copy);
+  EXPECT_EQ(grid.get_grid(), grid_copy);
 
   // Clear the grid.
   grid.clear();
@@ -236,12 +236,12 @@ TEST(multi_array, advanced_2D_uint8_t)
   grid.set_value(1, 71);
   EXPECT_EQ(grid.get_value(1), 71);
 
-  // Test the GetGrid() function.
-  auto grid_copy = grid.GetGrid();
+  // Test the get_grid() function.
+  auto grid_copy = grid.get_grid();
 
-  // Test the SetGrid() function.
-  grid.SetGrid(grid_copy);
-  EXPECT_EQ(grid.GetGrid(), grid_copy);
+  // Test the set_grid() function.
+  grid.set_grid(grid_copy);
+  EXPECT_EQ(grid.get_grid(), grid_copy);
 
   // Clear the grid.
   grid.clear();
@@ -318,12 +318,12 @@ TEST(multi_array, advanced_2D_uint32_t)
   grid.set_value(1, 71);
   EXPECT_EQ(grid.get_value(1), 71);
 
-  // Test the GetGrid() function.
-  auto grid_copy = grid.GetGrid();
+  // Test the get_grid() function.
+  auto grid_copy = grid.get_grid();
 
-  // Test the SetGrid() function.
-  grid.SetGrid(grid_copy);
-  EXPECT_EQ(grid.GetGrid(), grid_copy);
+  // Test the set_grid() function.
+  grid.set_grid(grid_copy);
+  EXPECT_EQ(grid.get_grid(), grid_copy);
 
   // Clear the grid.
   grid.clear();
@@ -397,12 +397,12 @@ TEST(multi_array, advanced_3D_uint8_t)
   grid.set_value(1, 71);
   EXPECT_EQ(grid.get_value(1), 71);
 
-  // Test the GetGrid() function.
-  auto grid_copy = grid.GetGrid();
+  // Test the get_grid() function.
+  auto grid_copy = grid.get_grid();
 
-  // Test the SetGrid() function.
-  grid.SetGrid(grid_copy);
-  EXPECT_EQ(grid.GetGrid(), grid_copy);
+  // Test the set_grid() function.
+  grid.set_grid(grid_copy);
+  EXPECT_EQ(grid.get_grid(), grid_copy);
 
   // Clear the grid.
   grid.clear();
@@ -476,12 +476,12 @@ TEST(multi_array, advanced_3D_uint32_t)
   grid.set_value(1, 71);
   EXPECT_EQ(grid.get_value(1), 71);
 
-  // Test the GetGrid() function.
-  auto grid_copy = grid.GetGrid();
+  // Test the get_grid() function.
+  auto grid_copy = grid.get_grid();
 
-  // Test the SetGrid() function.
-  grid.SetGrid(grid_copy);
-  EXPECT_EQ(grid.GetGrid(), grid_copy);
+  // Test the set_grid() function.
+  grid.set_grid(grid_copy);
+  EXPECT_EQ(grid.get_grid(), grid_copy);
 
   // Clear the grid.
   grid.clear();
@@ -556,12 +556,12 @@ TEST(multi_array, advanced_4D_uint8_t)
   grid.set_value(1, 71);
   EXPECT_EQ(grid.get_value(1), 71);
 
-  // Test the GetGrid() function.
-  auto grid_copy = grid.GetGrid();
+  // Test the get_grid() function.
+  auto grid_copy = grid.get_grid();
 
-  // Test the SetGrid() function.
-  grid.SetGrid(grid_copy);
-  EXPECT_EQ(grid.GetGrid(), grid_copy);
+  // Test the set_grid() function.
+  grid.set_grid(grid_copy);
+  EXPECT_EQ(grid.get_grid(), grid_copy);
 
   // Clear the grid.
   grid.clear();
@@ -636,12 +636,12 @@ TEST(multi_array, advanced_4D_uint32_t)
   grid.set_value(1, 71);
   EXPECT_EQ(grid.get_value(1), 71);
 
-  // Test the GetGrid() function.
-  auto grid_copy = grid.GetGrid();
+  // Test the get_grid() function.
+  auto grid_copy = grid.get_grid();
 
-  // Test the SetGrid() function.
-  grid.SetGrid(grid_copy);
-  EXPECT_EQ(grid.GetGrid(), grid_copy);
+  // Test the set_grid() function.
+  grid.set_grid(grid_copy);
+  EXPECT_EQ(grid.get_grid(), grid_copy);
 
   // Clear the grid.
   grid.clear();
@@ -717,12 +717,12 @@ TEST(multi_array, advanced_5D_uint8_t)
   grid.set_value(1, 71);
   EXPECT_EQ(grid.get_value(1), 71);
 
-  // Test the GetGrid() function.
-  auto grid_copy = grid.GetGrid();
+  // Test the get_grid() function.
+  auto grid_copy = grid.get_grid();
 
-  // Test the SetGrid() function.
-  grid.SetGrid(grid_copy);
-  EXPECT_EQ(grid.GetGrid(), grid_copy);
+  // Test the set_grid() function.
+  grid.set_grid(grid_copy);
+  EXPECT_EQ(grid.get_grid(), grid_copy);
 
   // Clear the grid.
   grid.clear();
@@ -798,12 +798,12 @@ TEST(multi_array, advanced_5D_uint32_t)
   grid.set_value(1, 71);
   EXPECT_EQ(grid.get_value(1), 71);
 
-  // Test the GetGrid() function.
-  auto grid_copy = grid.GetGrid();
+  // Test the get_grid() function.
+  auto grid_copy = grid.get_grid();
 
-  // Test the SetGrid() function.
-  grid.SetGrid(grid_copy);
-  EXPECT_EQ(grid.GetGrid(), grid_copy);
+  // Test the set_grid() function.
+  grid.set_grid(grid_copy);
+  EXPECT_EQ(grid.get_grid(), grid_copy);
 
   // Clear the grid.
   grid.clear();
