@@ -29,6 +29,7 @@
 namespace benlib
 {
 
+/*
 template<typename T, typename R = std::mt19937_64>
 void random(std::vector<T>& vect, const T& min, const T& max, R& rng)
 {
@@ -44,6 +45,21 @@ void random(std::vector<T>& vect, const T& min, const T& max, R& rng)
 
   } else {
     // throw std::runtime_error("Benlib::random: Unsupported type.");
+  }
+}
+*/
+
+template<typename T, typename R = std::mt19937_64>
+void random(std::vector<T>& vect, const T& min, const T& max, R& rng)
+{
+  using dist_type = typename std::conditional<std::is_integral<T>::value,
+                                              std::uniform_int_distribution<T>,
+                                              std::uniform_real_distribution<T> >::type;
+
+  thread_local static dist_type dist;
+
+  for (auto& elem : vect) {
+    elem = dist(rng, typename dist_type::param_type {min, max});
   }
 }
 
@@ -64,29 +80,19 @@ void random(std::vector<T>& vect, const T& min, const T& max)
 }
 
 template<typename T, typename R = std::mt19937_64>
+void random(std::vector<T>& vect, const T& min, const T& max, const uint64_t& seed)
+{
+  thread_local static R rng(static_cast<typename T::result_type>(seed));
+  random<T, R>(vect, min, max, rng);
+}
+
+template<typename T, typename R = std::mt19937_64>
 void random(std::vector<T>& vect)
 {
   const auto min = std::numeric_limits<T>::min();
   const auto max = std::numeric_limits<T>::max();
 
-  thread_local static R rng(std::random_device {}());
-
-  using dist_type = typename std::conditional<std::is_integral<T>::value,
-                                              std::uniform_int_distribution<T>,
-                                              std::uniform_real_distribution<T> >::type;
-
-  thread_local static dist_type dist;
-
-  for (auto& elem : vect) {
-    elem = dist(rng, typename dist_type::param_type {min, max});
-  }
-}
-
-template<typename T, typename R = std::mt19937_64>
-void random(std::vector<T>& vect, const T& min, const T& max, const uint64_t& seed)
-{
-  R rng(static_cast<typename T::result_type>(seed));
-  random<T, R>(vect, min, max, rng);
+  random(vect, min, max);
 }
 
 }  // namespace benlib

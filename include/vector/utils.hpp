@@ -23,6 +23,12 @@
 
 #include <cstddef>  // std::size_t
 
+/*
+constexpr uint64_t KB = 1024u;
+constexpr uint64_t MB = 1024u * 1024u;
+constexpr uint64_t GB = 1024u * 1024u * 1024u;
+*/
+
 constexpr std::size_t operator""_KB(const unsigned long long v)
 {
   return 1024u * v;
